@@ -1,0 +1,379 @@
+/* ──────────────────────────────────────────────────────────────────
+ * Spendflo Design System — Tokens
+ * Warm monochromatic stone palette. PP Neue Montreal for display,
+ * Inter for everything else. All neutrals trend WARM (stone, not slate).
+ * ────────────────────────────────────────────────────────────────── */
+
+/* ── Webfonts ───────────────────────────────────────────────────── */
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("/fonts/ppneuemontreal-book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("/fonts/ppneuemontreal-medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("/fonts/ppneuemontreal-bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("/fonts/ppneuemontreal-italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("/fonts/ppneuemontreal-thin.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+/* Fragment Mono is used for one tiny accent (Most Popular pill). Use a
+ * monospace fallback — substitute IBM Plex Mono via Google Fonts in
+ * pages that need it (load explicitly). */
+
+:root {
+  /* ─────────── Color · Brand & Backgrounds (warm stone) ─────────── */
+  --brand-primary: #1c1917;          /* the ONLY CTA / interactive color */
+  --brand-primary-hover: #0d0d0d;    /* primary on hover */
+  --brand-primary-subtle: #d6d3d1;   /* subtle borders on dark badges, warm-stone tints */
+  --brand-magenta: #e92589;          /* logo accent only — never UI */
+
+  --bg-page: #fdfcfc;                /* page background */
+  --bg-alt: #fafaf9;                 /* subtle alt surface, banner BG */
+  --bg-card: #f4f3f2;                /* feature cards, announcement bar */
+  --bg-card-inner: #e7e5e4;          /* inner card surfaces, image placeholders */
+  --bg-dark: #1c1917;                /* security / dark section / footer */
+  --white: #ffffff;
+
+  /* ─────────── Color · Text ─────────── */
+  --text-primary: #1c1917;
+  --text-secondary: #78716c;         /* subtitles, descriptions, captions */
+  --text-muted: #a8a29e;             /* disabled, placeholder, meta */
+  --text-on-dark: #fafaf9;           /* body text on dark sections */
+  --text-on-dark-muted: rgba(250, 250, 249, 0.65);
+
+  /* ─────────── Color · Borders / Overlays ─────────── */
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-default: rgba(0, 0, 0, 0.12);
+  --border-strong: rgba(0, 0, 0, 0.20);
+  --border-card: #e7e5e4;            /* opaque card border */
+
+  /* ─────────── Color · Semantic (rarely-used; mono brand) ─────────── */
+  --success: #1a9e6a;                /* used as stroke only in figma */
+  --success-bg: #e7f4ee;
+
+  /* ─────────── Radius ─────────── */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 999px;
+
+  /* ─────────── Shadows ─────────── */
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.03);
+  --shadow-md:  0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg:  0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl:  0 20px 25px -5px rgba(0, 0, 0, 0.10), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.22);
+
+  /* ─────────── Spacing primitives ─────────── */
+  --space-2xs: 6px;
+  --space-sm: 8px;
+  --space-md-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;   /* section horizontal padding (desktop) */
+  --space-4xl: 80px;   /* section inner gap */
+  --space-5xl: 112px;  /* section padding-top (desktop) */
+  --space-hero: 216px; /* hero padding-top, clears nav + announce */
+
+  /* ─────────── Type · Families ─────────── */
+  --font-display: "PP Neue Montreal", "Helvetica Neue", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", "Helvetica Neue", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", "Fragment Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ─────────── Type · Size scale (desktop) ─────────── */
+  --fs-h1: 48px;          /* hero · PP Neue Montreal 500 · 120% */
+  --fs-h2: 36px;          /* section · PP Neue Montreal 500 · 120% */
+  --fs-h3: 20px;          /* card title · Inter 500 · 140% */
+  --fs-body-lg: 18px;     /* Inter 400 · 150% */
+  --fs-body: 16px;        /* Inter 400 · 150% */
+  --fs-body-sm: 14px;     /* nav / small · Inter 500 · 150% */
+  --fs-caption: 12px;     /* meta · Inter 400 · 150% */
+  --fs-eyebrow: 12px;     /* uppercased label · Inter 500 · 0.5px tracking */
+
+  /* ─────────── Type · Line height ─────────── */
+  --lh-tight: 1.2;
+  --lh-snug: 1.4;
+  --lh-normal: 1.5;
+
+  /* ─────────── Motion ─────────── */
+  --dur-fast: 100ms;
+  --dur-base: 200ms;
+  --dur-slow: 300ms;
+  --dur-slower: 500ms;
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* ─────────── Layout ─────────── */
+  --max-content: 1280px;
+  --container-x: 64px;
+}
+
+/* ── Base / reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--text-primary);
+  background: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  letter-spacing: 0; /* NEVER track */
+}
+
+/* ── Semantic type roles ────────────────────────────────────────── */
+.h1, h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.h2, h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+  color: var(--text-primary);
+  margin: 0;
+}
+.h3, h3 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  color: var(--text-primary);
+  margin: 0;
+}
+.body-lg {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-normal);
+  color: var(--text-secondary);
+}
+.body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--text-secondary);
+}
+.body-strong {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--text-primary);
+}
+.small,
+.nav {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-normal);
+  color: var(--text-primary);
+}
+.caption {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-normal);
+  color: var(--text-secondary);
+}
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-eyebrow);
+  line-height: var(--lh-normal);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.66px;
+}
+
+/* ── Responsive type (tablet < 1024 / mobile < 640) ─────────────── */
+@media (max-width: 1024px) {
+  :root { --fs-h1: 36px; --fs-h2: 28px; --fs-h3: 18px; --fs-body-lg: 16px; --container-x: 32px; }
+}
+@media (max-width: 640px) {
+  :root { --fs-h1: 32px; --fs-h2: 24px; --fs-h3: 16px; --fs-body-lg: 14px; --fs-body: 14px; --container-x: 20px; }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Common atoms ───────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-body-sm);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn:active { transform: translateY(0.5px); }
+
+.btn-primary {
+  background: var(--brand-primary);
+  color: var(--text-on-dark);
+}
+.btn-primary:hover { background: var(--brand-primary-hover); }
+
+.btn-primary-lg {
+  font-size: var(--fs-body);
+  padding: 12px 18px;
+}
+
+.btn-secondary {
+  background: var(--bg-alt);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+.btn-secondary:hover { background: var(--bg-card); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  padding: 6px 4px;
+}
+.btn-ghost:hover { color: var(--text-secondary); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-body-sm);
+  color: var(--text-primary);
+  border: 1px solid var(--brand-primary-subtle);
+  border-radius: var(--radius-md);
+  padding: 4px 10px;
+  background: transparent;
+}
+
+.input {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body-sm);
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--white);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.input::placeholder { color: var(--text-muted); }
+.input:focus { border-color: var(--brand-primary); }
+
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid transparent;
+}
+.card-bordered {
+  background: var(--bg-alt);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+}
+.divider {
+  height: 1px;
+  background: var(--border-default);
+  border: 0;
+  width: 100%;
+}
+
+/* Lucide-style icon defaults */
+.icon { width: 20px; height: 20px; display: inline-block; vertical-align: middle; color: currentColor; }
+.icon-sm { width: 16px; height: 16px; }
+.icon-lg { width: 24px; height: 24px; }

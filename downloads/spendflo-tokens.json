@@ -1,0 +1,36 @@
+{
+  "color": {
+    "brand-primary": "#1c1917",
+    "brand-primary-hover": "#0d0d0d",
+    "brand-primary-subtle": "#d6d3d1",
+    "brand-magenta": "#e92589",
+    "bg-page": "#fdfcfc",
+    "bg-alt": "#fafaf9",
+    "bg-card": "#f4f3f2",
+    "bg-card-inner": "#e7e5e4",
+    "bg-dark": "#1c1917",
+    "text-primary": "#1c1917",
+    "text-secondary": "#78716c",
+    "text-muted": "#a8a29e",
+    "text-on-dark": "#fafaf9",
+    "text-on-dark-muted": "#a8a29e",
+    "border-subtle": "rgba(0,0,0,0.08)",
+    "border-default": "rgba(0,0,0,0.12)",
+    "border-strong": "rgba(0,0,0,0.20)",
+    "border-card": "#e7e5e4",
+    "success": "#1a9e6a"
+  },
+  "space": { "2xs": 6, "sm": 8, "md-sm": 12, "md": 16, "lg": 24, "xl": 32, "2xl": 48, "3xl": 64, "4xl": 80, "5xl": 112, "hero": 216 },
+  "radius": { "xs": 2, "sm": 4, "md": 8, "lg": 12, "xl": 16, "full": 999 },
+  "duration": { "fast": 100, "base": 200, "slow": 300, "slower": 500 },
+  "easing": {
+    "out": "cubic-bezier(0, 0, 0.2, 1)",
+    "in-out": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "smooth": "cubic-bezier(0.32, 0.72, 0, 1)"
+  },
+  "font": {
+    "display": "PP Neue Montreal, sans-serif",
+    "sans": "Inter, sans-serif",
+    "mono": "IBM Plex Mono, monospace"
+  }
+}
