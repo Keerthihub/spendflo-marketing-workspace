@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spendflo · Signature Builder</title>
+<link rel="icon" href="/brand/spendflo-icon-colour.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F8FC; --card:#fff; --border:#E7E9EF; --ink:#1D2433; --muted:#667085;
+  --accent:#e92589; --maroon:#390021; --line:#e7e5e4;
+  --r8:8px; --r12:12px; --r16:16px; --r20:20px;
+  --sh:0 1px 2px rgba(16,24,40,.04); --sh-pop:0 12px 30px -14px rgba(16,24,40,.22);
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:Inter,-apple-system,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+button{font-family:inherit}
+.app{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+
+/* header */
+.top{display:flex;align-items:center;gap:16px;padding:12px 20px;background:var(--card);border-bottom:1px solid var(--border);z-index:5}
+.brandmark{display:flex;align-items:center;gap:10px;font-weight:600}
+.brandmark img{height:22px;display:block}
+.brandmark .sep{color:var(--muted);font-weight:500}
+.brandmark .tag{color:var(--muted);font-weight:500;font-size:14px}
+.top .spacer{flex:1}
+.saved{display:flex;align-items:center;gap:6px;color:#1a9e6a;font-size:13px;font-weight:500}
+.saved svg{width:16px;height:16px}
+.seg{display:inline-flex;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:3px}
+.seg button{border:0;background:transparent;padding:6px 14px;font-size:13px;color:var(--muted);border-radius:8px;cursor:pointer;font-weight:500;transition:.15s}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.tbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);background:#fff;color:var(--ink);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:500;cursor:pointer;transition:.15s}
+.tbtn:hover{box-shadow:var(--sh-pop)}
+.tbtn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tbtn svg{width:15px;height:15px}
+
+/* body */
+.body{display:flex;flex:1;min-height:0}
+.rail{width:88px;flex:0 0 88px;background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 0;overflow-y:auto}
+.rail a{display:flex;flex-direction:column;align-items:center;gap:5px;width:72px;padding:10px 0;border-radius:14px;color:var(--muted);cursor:pointer;text-decoration:none;font-size:11px;font-weight:500;transition:.15s}
+.rail a svg{width:20px;height:20px}
+.rail a:hover{background:var(--bg);color:var(--ink)}
+.rail a.on{color:var(--accent)}
+.rail a.on .ic{background:var(--accent);color:#fff}
+.rail .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--bg);transition:.15s}
+
+.editor{flex:0 0 40%;max-width:520px;overflow-y:auto;padding:26px 24px 80px;display:flex;flex-direction:column;gap:18px;scroll-behavior:smooth}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r20);padding:22px 22px 24px;box-shadow:var(--sh)}
+.card h2{margin:0;font-size:20px;font-weight:600;letter-spacing:-.01em}
+.card .sub{margin:2px 0 16px;color:var(--muted);font-size:13.5px}
+.card .top-row{display:flex;justify-content:space-between;align-items:baseline}
+.clear{background:none;border:0;color:var(--muted);font-size:13px;cursor:pointer}
+.clear:hover{color:var(--accent)}
+.field{position:relative;margin-top:12px}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--border);border-radius:14px;padding:14px 15px;font:inherit;font-size:14.5px;color:var(--ink);background:#fff;transition:.15s}
+.field textarea{resize:vertical;min-height:64px}
+.field input::placeholder,.field textarea::placeholder{color:#98a2b3}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(233,37,137,.12)}
+.field .spark{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:9px;border:0;background:none;color:#a78bfa;cursor:pointer;display:grid;place-items:center}
+.field .spark:hover{background:#f5f3ff}
+.field .spark svg{width:17px;height:17px}
+.err{color:#d92d20;font-size:12px;margin-top:6px;display:none}
+.err.show{display:block}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* uploads */
+.upl{border:1.5px dashed var(--border);border-radius:16px;padding:18px;text-align:center;color:var(--muted);cursor:pointer;transition:.15s;margin-top:12px}
+.upl:hover{border-color:var(--accent);color:var(--accent);background:#fff}
+.upl input{display:none}
+.upl-prev{display:flex;align-items:center;gap:12px;margin-top:12px}
+.upl-prev img{width:56px;height:56px;border-radius:12px;object-fit:cover;border:1px solid var(--border)}
+.upl-prev .rm{margin-left:auto;border:1px solid var(--border);background:#fff;border-radius:9px;padding:6px 10px;font-size:12px;cursor:pointer;color:var(--muted)}
+/* clean image fields */
+.imgf{padding:14px 0;border-bottom:1px solid var(--border)}
+.imgf:last-child{border-bottom:0}
+.imgf-title{font-size:14.5px;font-weight:600}
+.imgf-desc{font-size:12.5px;color:var(--muted);margin:2px 0 10px}
+.imgf-drop{display:flex;flex-direction:column;align-items:center;gap:4px;border:1.5px dashed var(--border);border-radius:14px;padding:22px;cursor:pointer;color:var(--muted);transition:.15s;text-align:center}
+.imgf-drop:hover{border-color:var(--accent);color:var(--accent);background:#fff}
+.imgf-drop input{display:none}
+.imgf-plus{width:34px;height:34px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:20px;line-height:1;color:var(--accent)}
+.imgf-cta{font-size:13.5px;font-weight:500;color:var(--ink)}
+.imgf-drop em{font-style:normal;font-size:11.5px;color:var(--muted)}
+.imgf-prev{display:flex;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:10px 12px}
+.imgf-prev img{width:56px;height:56px;border-radius:10px;object-fit:contain;background:#fff;border:1px solid var(--border)}
+.imgf-ok{font-size:12.5px;color:#1a9e6a;font-weight:500}
+.imgf-rm{margin-left:auto;border:1px solid var(--border);background:#fff;border-radius:9px;padding:7px 12px;font-size:12.5px;cursor:pointer;color:var(--muted)}
+.imgf-url{width:100%;border:1px solid var(--border);border-radius:11px;padding:10px 12px;font:inherit;font-size:13px;margin-top:10px}
+.imgf-url:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(233,37,137,.12)}
+
+/* toggles / rows */
+.row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.row:last-child{border-bottom:0}
+.row .lbl{flex:1;font-size:14px}
+.row .lbl small{display:block;color:var(--muted);font-size:12px;margin-top:1px}
+.sw{width:40px;height:23px;border-radius:999px;background:#d6d3d1;position:relative;transition:.2s;flex:0 0 auto;cursor:pointer;border:0}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:19px;height:19px;border-radius:999px;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.sw.on{background:var(--accent)}
+.sw.on::after{transform:translateX(17px)}
+.mini{width:100%;border:1px solid var(--border);border-radius:11px;padding:9px 11px;font:inherit;font-size:13px;margin-top:8px}
+
+/* preview */
+.preview{flex:1;min-width:0;display:flex;flex-direction:column;background:linear-gradient(180deg,#fbfbfd,#f4f5fa)}
+.pv-head{padding:22px 30px 0}
+.pv-head h1{margin:0;font-size:26px;font-weight:600;letter-spacing:-.02em}
+.pv-head p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.pv-toolbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 30px 0;padding:10px 12px;background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--sh)}
+.pv-toolbar .swatch{width:40px;height:34px;border-radius:10px;border:1px solid var(--border);padding:0;cursor:pointer;overflow:hidden}
+.pv-toolbar .div{width:1px;height:26px;background:var(--border)}
+.pv-toolbar label{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted)}
+.pv-toolbar select{border:1px solid var(--border);border-radius:10px;padding:8px 10px;font:inherit;font-size:13px;background:#fff;cursor:pointer;color:var(--ink)}
+.iconbtn{width:36px;height:34px;border:1px solid var(--border);border-radius:10px;background:#fff;cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+.iconbtn svg{width:16px;height:16px}
+.pv-scroll{flex:1;overflow:auto;padding:26px 30px 10px;display:flex;justify-content:center}
+.artboard{background:#fff;border:1px solid var(--border);border-radius:20px;box-shadow:var(--sh-pop);width:100%;max-width:680px;align-self:flex-start;transition:max-width .35s cubic-bezier(.32,.72,0,1),background .3s;overflow:hidden}
+.artboard.mobile{max-width:390px}
+.artboard.dark{background:#111114}
+.art-chrome{display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.artboard.dark .art-chrome{border-color:#26262b}
+.art-dot{width:10px;height:10px;border-radius:50%;background:#e4e4e7}
+.art-url{margin-left:10px;font-family:var(--mono);font-size:12px;color:#98a2b3}
+.canvas{padding:52px 44px;display:flex;justify-content:center;transition:background .3s}
+.artboard.mobile .canvas{padding:40px 22px}
+.canvas-inner{width:100%}
+
+/* layout picker */
+.layouts{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 30px 22px;flex-wrap:wrap}
+.layouts button{width:44px;height:44px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--muted);font-weight:600;font-size:15px;cursor:pointer;transition:.15s}
+.layouts button:hover{transform:translateY(-2px);box-shadow:var(--sh-pop)}
+.layouts button.on{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 2px rgba(233,37,137,.2)}
+.layouts .ai{border-color:#e9d5ff;color:#a78bfa}
+.layouts .nav{color:var(--muted)}
+
+/* toast */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:12px;font-size:13.5px;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:var(--sh-pop)}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+/* export menu */
+.menu{position:absolute;top:56px;right:20px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--sh-pop);padding:6px;min-width:210px;z-index:20;display:none}
+.menu.show{display:block}
+.menu button{display:flex;width:100%;align-items:center;gap:10px;border:0;background:none;padding:10px 12px;border-radius:9px;font-size:13.5px;color:var(--ink);cursor:pointer;text-align:left}
+.menu button:hover{background:var(--bg)}
+.menu .divm{height:1px;background:var(--border);margin:5px 4px}
+.hide{display:none!important}
+@media(max-width:1080px){.editor{flex-basis:46%}}
+@media(max-width:860px){
+  .body{flex-direction:column;overflow:auto}
+  .rail{width:100%;flex-direction:row;flex:0 0 auto;border-right:0;border-bottom:1px solid var(--border);overflow-x:auto}
+  .editor{flex:0 0 auto;max-width:none}
+  .preview{min-height:80vh}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- HEADER -->
+  <header class="top">
+    <div class="brandmark"><img src="/brand/spendflo-full-colour-black.png" alt="Spendflo"><span class="sep">·</span><span class="tag">Signature Builder</span></div>
+    <div class="spacer"></div>
+    <span class="saved"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span id="savedTxt">Auto saved</span></span>
+    <div class="seg" id="device"><button data-v="desktop" class="on">Desktop</button><button data-v="mobile">Mobile</button></div>
+    <button class="iconbtn" id="themeBtn" title="Preview background"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+    <button class="tbtn" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy</button>
+    <button class="tbtn dark" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Export</button>
+    <div class="menu" id="exportMenu">
+      <button data-x="gmail">Copy for Gmail</button>
+      <button data-x="outlook">Copy for Outlook</button>
+      <button data-x="html">Copy HTML</button>
+      <div class="divm"></div>
+      <button data-x="download">Download .html</button>
+      <button data-x="png">Download .png</button>
+      <div class="divm"></div>
+      <button data-x="reset">Reset builder</button>
+    </div>
+  </header>
+
+  <div class="body">
+    <!-- RAIL -->
+    <nav class="rail" id="rail"></nav>
+
+    <!-- EDITOR -->
+    <div class="editor" id="editor"></div>
+
+    <!-- PREVIEW -->
+    <div class="preview">
+      <div class="pv-head"><h1>Signature Preview</h1><p>Live updates as you edit — pick a layout below.</p></div>
+      <div class="pv-toolbar">
+        <input type="color" class="swatch" id="accent" title="Accent colour">
+        <div class="div"></div>
+        <label>Font <select id="font"><option>Inter</option><option>Arial</option><option>Helvetica</option><option>Georgia</option><option>Verdana</option></select></label>
+        <label>Size <select id="fontsize"><option value="s">Small</option><option value="m" selected>Medium</option><option value="l">Large</option></select></label>
+        <div class="div"></div>
+        <label>Details label <select id="detailsLabel"><option value="icon">Icon</option><option value="text">Text</option></select></label>
+        <label>Socials <select id="socialStyle"><option value="theme">Theme</option><option value="colour">Colour</option></select></label>
+      </div>
+      <div class="pv-scroll">
+        <div class="artboard desktop light" id="artboard">
+          <div class="art-chrome"><span class="art-dot"></span><span class="art-dot"></span><span class="art-dot"></span><span class="art-url">Compose — new message</span></div>
+          <div class="canvas" id="canvas"><div class="canvas-inner" id="sig"></div></div>
+        </div>
+      </div>
+      <div class="layouts" id="layouts"></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+var ORIGIN=location.origin, abs=function(p){return ORIGIN+p;};
+var LS='spendflo-sig-fullscreen-v1';
+
+/* ---------- state ---------- */
+var DEF={
+  greeting:'Cheers!', fullName:'Alex Morgan', jobTitle:'Account Executive', company:'Spendflo',
+  tagline:'AI Workforce for P2P', website:'https://spendflo.com',
+  phone:'', mobile:'4155550142', email:'alex@spendflo.com', address:'San Francisco, CA',
+  logoUrl:'', bannerUrl:'',
+  social:{linkedin:'https://linkedin.com/in/alexmorgan', whatsapp:'', x:'', youtube:'', slack:'', github:''},
+  cta:{ on:true, text:'Book a Demo', url:'https://spendflo.com/demo', style:'solid', color:'#e92589' },
+  companyTagline:'', disclaimer:'', confidentiality:false, office:'',
+  layout:1, accent:'#e92589', font:'Inter', fontsize:'m', detailsLabel:'icon', socialStyle:'theme',
+  device:'desktop', bg:'light', section:'details'
+};
+var state=load(); var history=[snap()], hi=0;
+function load(){ try{var s=JSON.parse(localStorage.getItem(LS)); if(s) return Object.assign(JSON.parse(JSON.stringify(DEF)),s);}catch(e){} return JSON.parse(JSON.stringify(DEF)); }
+function snap(){ return JSON.stringify(state); }
+function persist(){ try{localStorage.setItem(LS,snap());}catch(e){} saved(); }
+function pushHistory(){ history=history.slice(0,hi+1); history.push(snap()); if(history.length>60)history.shift(); hi=history.length-1; }
+var saveT; function saved(){ var t=document.getElementById('savedTxt'); t.textContent='Saving…'; clearTimeout(saveT); saveT=setTimeout(function(){t.textContent='Auto saved';},600); }
+
+/* ---------- helpers ---------- */
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function isEmail(s){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s||'');}
+function href(u){if(!u)return'';return /^https?:\/\//.test(u)?u:('https://'+u);}
+function fmtPhone(p){if(!p)return'';var d=(''+p).replace(/\D/g,'');if(d.length===10)return '('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6);if(d.length===11&&d[0]==='1')return '+1 ('+d.slice(1,4)+') '+d.slice(4,7)+'-'+d.slice(7);return p;}
+function fontStack(){var m={Inter:"Inter,Arial,sans-serif",Arial:"Arial,Helvetica,sans-serif",Helvetica:"Helvetica,Arial,sans-serif",Georgia:"Georgia,'Times New Roman',serif",Verdana:"Verdana,Geneva,sans-serif"};return m[state.font]||m.Inter;}
+function sizes(){var s=state.fontsize;return s==='s'?{name:15,body:12,greet:13}:s==='l'?{name:19,body:14,greet:15}:{name:17,body:13,greet:14};}
+
+/* ---------- signature blocks ---------- */
+function socialIcons(){
+  var order=['linkedin','whatsapp','x','youtube','slack','github'];
+  var dir=state.socialStyle==='colour'?'/icons/social/':'/icons/social/black/';
+  var out='';
+  order.forEach(function(k){var u=state.social[k];if(!u)return;
+    out+='<a href="'+esc(href(u))+'" style="text-decoration:none;margin-right:7px;display:inline-block"><img src="'+abs(dir+k+'.png')+'" width="24" height="24" alt="'+k+'" style="vertical-align:middle;border:0"></a>';});
+  return out?'<div style="margin-top:12px;line-height:1">'+out+'</div>':'';
+}
+function contactRows(){
+  var f=fontStack(),z=sizes(),c=state.accent,rows=[];
+  function row(icon,txt,url,label){
+    var left = state.detailsLabel==='text'
+      ? '<span style="color:'+c+';font-weight:600">'+label+':</span> '
+      : '<img src="'+abs('/icons/social/'+icon+'.png')+'" width="14" height="14" style="vertical-align:middle;margin-right:8px" alt="">';
+    return '<tr><td style="padding:2px 0;font-family:'+f+';font-size:'+z.body+'px;color:#475467;line-height:1.5">'+left+'<a href="'+esc(url)+'" style="color:#475467;text-decoration:none">'+esc(txt)+'</a></td></tr>';
+  }
+  if(isEmail(state.email))rows.push(row('mail',state.email,'mailto:'+state.email,'Email'));
+  var ph=state.mobile||state.phone; if(ph)rows.push(row('phone',fmtPhone(ph),'tel:'+(''+ph).replace(/[^\d+]/g,''),'Phone'));
+  if(state.website)rows.push(row('globe',state.website.replace(/^https?:\/\//,''),href(state.website),'Web'));
+  if(state.address)rows.push(row('calendar',state.address,href(state.website||'https://spendflo.com'),'Location'));
+  return rows.length?'<table cellpadding="0" cellspacing="0" role="presentation" style="margin-top:8px">'+rows.join('')+'</table>':'';
+}
+function nameBlock(big){
+  var f=fontStack(),z=sizes(),c=state.accent,ns=big?z.name+3:z.name;
+  var o='';
+  if(state.greeting)o+='<div style="font-family:'+f+';font-size:'+z.greet+'px;color:#1D2433;margin-bottom:4px">'+esc(state.greeting)+'</div>';
+  o+='<div style="font-family:'+f+';font-size:'+ns+'px;color:#1D2433;line-height:1.3"><b style="font-weight:700">'+esc(state.fullName)+'</b>'+(state.jobTitle?' <span style="color:#667085">| '+esc(state.jobTitle)+'</span>':'')+'</div>';
+  if(state.company)o+='<div style="font-family:'+f+';font-size:'+ns+'px;line-height:1.3"><b style="color:'+c+';font-weight:700">'+esc(state.company)+'</b>'+(state.tagline?' <span style="color:#1D2433">| '+esc(state.tagline)+'</span>':'')+'</div>';
+  return o;
+}
+function tile(size){
+  size=size||120;
+  if(state.logoUrl)return '<img src="'+esc(state.logoUrl)+'" width="'+size+'" alt="'+esc(state.company)+'" style="display:block;max-width:'+size+'px;height:auto;border-radius:16px">';
+  return '<img src="'+abs('/brand/spendflo-avatar.png')+'" width="'+size+'" height="'+size+'" alt="Spendflo" style="display:block;border-radius:16px">';
+}
+function ctaButton(){
+  var c=state.cta; if(!c||!c.on||!c.text)return'';
+  var col=c.color||state.accent, f=fontStack(), solid=c.style!=='outline';
+  return '<table cellpadding="0" cellspacing="0" role="presentation" style="margin-top:14px"><tr><td'+(solid?' bgcolor="'+col+'" style="border-radius:24px"':'')+'>'+
+    '<a href="'+esc(href(c.url))+'" style="display:inline-block;padding:11px 22px;font-family:'+f+';font-size:13px;font-weight:700;text-decoration:none;border-radius:24px;'+(solid?'color:#ffffff;background:'+col:'color:'+col+';border:1.5px solid '+col)+'">'+esc(c.text)+'</a></td></tr></table>';
+}
+function bannerBlock(){
+  if(!state.bannerUrl)return'';
+  return '<div style="margin-top:16px"><a href="'+esc(href(state.cta&&state.cta.url||state.website||'https://spendflo.com'))+'"><img src="'+esc(state.bannerUrl)+'" width="468" alt="Spendflo campaign" style="display:block;max-width:100%;height:auto;border-radius:12px;border:0"></a></div>';
+}
+function companyExtras(){
+  var f=fontStack(),bits=[];
+  if(state.office)bits.push(esc(state.office));
+  if(state.disclaimer)bits.push(esc(state.disclaimer));
+  if(state.confidentiality)bits.push('This email and any attachments are confidential and intended solely for the addressee.');
+  return bits.length?'<div style="margin-top:14px;font-family:'+f+';font-size:10px;color:#98a2b3;line-height:1.5;max-width:520px">'+bits.join('<br>')+'</div>':'';
+}
+function divider(vert){return vert?'border-left:1px solid #e7e5e4;padding-left:20px':'';}
+
+/* 6 numbered layouts (consistent spacing) */
+function renderSig(){
+  var c=state.accent,body,L=state.layout;
+  if(L===2){ // Minimal
+    body='<div>'+nameBlock()+'</div>'+contactRows()+socialIcons()+ctaButton();
+  } else if(L===3){ // Modern (accent bar)
+    body='<table cellpadding="0" cellspacing="0" role="presentation"><tr><td style="width:4px;background:'+c+';border-radius:4px"></td><td style="padding-left:18px;vertical-align:top">'+nameBlock(true)+contactRows()+socialIcons()+ctaButton()+'</td></tr></table>';
+  } else if(L===4){ // Corporate (logo lockup)
+    body='<div style="margin-bottom:14px">'+tile(132)+'</div>'+nameBlock()+contactRows()+socialIcons()+ctaButton();
+  } else if(L===5){ // Executive (no full logo)
+    body='<table cellpadding="0" cellspacing="0" role="presentation"><tr><td style="vertical-align:top;padding-right:24px">'+tile(150)+'</td><td style="vertical-align:top">'+nameBlock(true)+contactRows()+socialIcons()+ctaButton()+'</td></tr></table>';
+  } else { // 1 Classic Left
+    body='<table cellpadding="0" cellspacing="0" role="presentation"><tr>'+
+      '<td style="vertical-align:top;padding-right:22px">'+tile(120)+'</td>'+
+      '<td style="vertical-align:top;padding-left:22px;border-left:1px solid #e7e5e4">'+nameBlock()+contactRows()+socialIcons()+ctaButton()+'</td>'+
+      '</tr></table>';
+  }
+  return '<table cellpadding="0" cellspacing="0" role="presentation" style="font-family:'+fontStack()+';color:#1D2433"><tr><td>'+body+bannerBlock()+companyExtras()+'</td></tr></table>';
+}
+function plainText(){
+  var L=[]; if(state.fullName)L.push(state.fullName);
+  var tl=[state.jobTitle].filter(Boolean).join(''); if(tl)L.push(tl);
+  if(state.company)L.push(state.company+(state.tagline?' | '+state.tagline:''));
+  L.push('');
+  if(isEmail(state.email))L.push('Email: '+state.email);
+  var ph=state.mobile||state.phone; if(ph)L.push('Phone: '+fmtPhone(ph));
+  if(state.website)L.push('Web: '+state.website);
+  Object.keys(state.social).forEach(function(k){if(state.social[k])L.push(k[0].toUpperCase()+k.slice(1)+': '+state.social[k]);});
+  return L.join('\n');
+}
+
+/* ---------- rail ---------- */
+var RAIL=[
+  ['details','Details','<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>'],
+  ['images','Images','<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>'],
+  ['social','Social','<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>'],
+  ['cta','CTA','<rect x="3" y="8" width="18" height="8" rx="4"/><path d="M7 12h6"/>'],
+  ['company','Company','<path d="M3 21h18M6 21V7l6-4 6 4v14M10 9h.01M14 9h.01M10 13h.01M14 13h.01"/>'],
+  ['branding','Branding','<circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22a10 10 0 1 1 0-20 4 4 0 0 1 0 8h-1a3 3 0 0 0 0 6 3 3 0 0 1 1 6Z"/>'],
+];
+function buildRail(){
+  document.getElementById('rail').innerHTML=RAIL.map(function(r){
+    return '<a data-sec="'+r[0]+'" class="'+(state.section===r[0]?'on':'')+'"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+r[2]+'</svg></span>'+r[1]+'</a>';
+  }).join('');
+}
+
+/* ---------- editor cards ---------- */
+function fld(k,label,ph,type,spark){
+  return '<div class="field"><input data-k="'+k+'" type="'+(type||'text')+'" value="'+esc(state[k]||'')+'" placeholder="'+esc(label)+'">'+(spark?'<button class="spark" data-spark="'+k+'" title="Suggest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 4.6L18.5 8.5 13.9 10.4 12 15l-1.9-4.6L5.5 8.5l4.6-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9zM5 14l.7 1.6L7.3 16l-1.6.7L5 18.3 4.3 16.7 2.7 16l1.6-.7z"/></svg></button>':'')+'</div>';
+}
+function sfld(k,label){return '<div class="field"><input data-social="'+k+'" value="'+esc(state.social[k]||'')+'" placeholder="'+esc(label)+'"></div>';}
+function sw(on){return '<button class="sw '+(on?'on':'')+'"></button>';}
+function editorHtml(){
+  return ''+
+  card('details','Details','Start with the basics',
+    '<div class="top-row"><span></span><button class="clear" id="clearAll">Clear all fields</button></div>'+
+    fld('greeting','Greeting (e.g. Cheers!)')+fld('fullName','Full name')+fld('jobTitle','Job title',null,null,true)+
+    fld('company','Company')+fld('tagline','Company tagline',null,null,true)+fld('website','Website','',null,true))+
+  card('contact','Contact Info','Let people know how to reach you',
+    fld('mobile','Mobile')+fld('phone','Phone (optional)')+fld('email','Email','',null)+'<div class="err" id="emailErr">Enter a valid email address</div>'+fld('address','Address / location'))+
+  card('images','Images','Add your company logo and an optional campaign banner',
+    imageField('logoUrl','Company logo','Replaces the Spendflo tile on the left','PNG or SVG on a transparent background works best')+
+    imageField('bannerUrl','Event image','A full-width banner shown under your signature','Recommended 936×180 or wider'))+
+  card('social','Social','Only the ones you add will show',
+    sfld('linkedin','LinkedIn URL')+sfld('whatsapp','WhatsApp (wa.me/…)')+sfld('x','X (Twitter) URL')+sfld('youtube','YouTube URL')+sfld('slack','Slack URL')+sfld('github','GitHub URL'))+
+  card('cta','Call to action','A fully customisable button',
+    '<div class="row"><span class="lbl">Show CTA button</span>'+sw(state.cta.on)+'<input type="hidden" data-toggle="cta.on"></div>'+
+    '<div class="field"><input data-cta="text" value="'+esc(state.cta.text)+'" placeholder="Button text (e.g. Book a Demo)"></div>'+
+    '<div class="field"><input data-cta="url" value="'+esc(state.cta.url)+'" placeholder="Button link (https://…)"></div>'+
+    '<div class="row"><span class="lbl">Style</span><select class="mini" data-cta="style" style="width:auto;margin-top:0"><option value="solid"'+(state.cta.style==='solid'?' selected':'')+'>Solid</option><option value="outline"'+(state.cta.style==='outline'?' selected':'')+'>Outline</option></select></div>'+
+    '<div class="row"><span class="lbl">Button colour</span><input type="color" data-cta="color" value="'+(state.cta.color||state.accent)+'" style="width:44px;height:34px;border:1px solid var(--border);border-radius:10px;cursor:pointer"></div>')+
+  card('company','Company','Company & legal',
+    fld('office','Office location(s)')+'<div class="field"><textarea data-k="disclaimer" placeholder="Legal disclaimer (optional)">'+esc(state.disclaimer)+'</textarea><button class="spark" data-spark="disclaimer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 4.6L18.5 8.5 13.9 10.4 12 15l-1.9-4.6L5.5 8.5z"/></svg></button></div>'+
+    '<div class="row"><span class="lbl">Confidentiality notice<small>Append a standard confidentiality line</small></span>'+sw(state.confidentiality)+'<input type="hidden" data-toggle="confidentiality"></div>')+
+  card('branding','Branding','Match your team’s look',
+    '<div class="row"><span class="lbl">Accent colour</span><input type="color" data-k="accent" value="'+state.accent+'" style="width:44px;height:34px;border:1px solid var(--border);border-radius:10px;cursor:pointer"></div>'+
+    '<div class="row"><span class="lbl">Font family</span><select class="mini" data-k="font" style="width:auto;margin-top:0"><option>Inter</option><option>Arial</option><option>Helvetica</option><option>Georgia</option><option>Verdana</option></select></div>'+
+    '<div class="row"><span class="lbl">Details label</span><select class="mini" data-k="detailsLabel" style="width:auto;margin-top:0"><option value="icon">Icon</option><option value="text">Text</option></select></div>'+
+    '<div class="row"><span class="lbl">Social style</span><select class="mini" data-k="socialStyle" style="width:auto;margin-top:0"><option value="theme">Theme (black)</option><option value="colour">Colour</option></select></div>');
+}
+function card(sec,title,sub,inner){return '<section class="card" data-card="'+sec+'"><div class="top-row"><h2>'+title+'</h2></div><div class="sub">'+sub+'</div>'+inner+'</section>';}
+function uploadCard(k,label){
+  var has=state[k];
+  return '<div class="upl-wrap" data-uplwrap="'+k+'">'+(has
+    ? '<div class="upl-prev"><img src="'+esc(has)+'" alt=""><div><div style="font-size:13px;font-weight:500">'+label+'</div><div style="font-size:12px;color:var(--muted)">Added</div></div><button class="rm" data-rm="'+k+'">Remove</button></div>'
+    : '<label class="upl">'+label+' — drag & drop or click<input type="file" accept="image/*" data-upl="'+k+'"></label>')+
+    '<div class="field" style="margin-top:8px"><input data-k="'+k+'" placeholder="…or paste image URL" value="'+esc(has&&/^https?:/.test(has)?has:'')+'"></div></div>';
+}
+function imageField(k,label,desc,hint){
+  var has=state[k], isUrl=has&&/^https?:/.test(has);
+  return '<div class="imgf" data-imgf="'+k+'">'+
+    '<div class="imgf-title">'+label+'</div><div class="imgf-desc">'+desc+'</div>'+
+    (has
+      ? '<div class="imgf-prev"><img src="'+esc(has)+'" alt=""><span class="imgf-ok">Added</span><button class="imgf-rm" data-rm="'+k+'">Remove</button></div>'
+      : '<label class="imgf-drop"><input type="file" accept="image/*" data-upl="'+k+'"><span class="imgf-plus">+</span><span class="imgf-cta">Click or drop an image</span><em>'+hint+'</em></label>')+
+    '<input class="imgf-url" data-k="'+k+'" placeholder="…or paste an image URL" value="'+esc(isUrl?has:'')+'">'+
+    '</div>';
+}
+
+/* ---------- layout picker ---------- */
+function buildLayouts(){
+  var n='';for(var i=1;i<=5;i++)n+='<button data-layout="'+i+'" class="'+(state.layout===i?'on':'')+'">'+i+'</button>';
+  document.getElementById('layouts').innerHTML=
+    '<button class="nav" data-lnav="-1">‹</button>'+n+'<button class="nav" data-lnav="1">›</button>';
+}
+
+/* ---------- render all ---------- */
+function refresh(){
+  document.getElementById('sig').innerHTML=renderSig();
+  var art=document.getElementById('artboard'); art.className='artboard '+state.device+' '+state.bg;
+  document.getElementById('canvas').style.background=state.bg==='dark'?'#111114':'#fff';
+  document.getElementById('accent').value=state.accent;
+  document.getElementById('font').value=state.font;
+  document.getElementById('fontsize').value=state.fontsize;
+  document.getElementById('detailsLabel').value=state.detailsLabel;
+  document.getElementById('socialStyle').value=state.socialStyle;
+  var ee=document.getElementById('emailErr'); if(ee)ee.classList.toggle('show', state.email&&!isEmail(state.email));
+  persist();
+}
+function rebuild(){ document.getElementById('editor').innerHTML=editorHtml(); syncSelects(); buildLayouts(); buildRail(); refresh(); }
+function syncSelects(){ ['font','detailsLabel','socialStyle'].forEach(function(k){var s=document.querySelector('[data-k="'+k+'"]');if(s&&s.tagName==='SELECT')s.value=state[k];}); }
+
+/* ---------- events ---------- */
+var ed=document.getElementById('editor');
+ed.addEventListener('input',function(e){
+  var t=e.target,k=t.getAttribute('data-k'),sc=t.getAttribute('data-social'),ct=t.getAttribute('data-cta');
+  if(ct){state.cta[ct]=t.value; refresh(); return;}
+  if(k){state[k]=t.value; refresh(); return;}
+  if(sc){state.social[sc]=t.value; refresh(); return;}
+});
+ed.addEventListener('change',function(e){
+  var t=e.target,k=t.getAttribute('data-k'),ct=t.getAttribute('data-cta'),up=t.getAttribute('data-upl');
+  if(up){var f=t.files&&t.files[0]; if(f){var r=new FileReader();r.onload=function(){state[up]=r.result;pushHistory();rebuild();toast('Image added');};r.readAsDataURL(f);} return;}
+  if(ct&&t.tagName==='SELECT'){state.cta[ct]=t.value;pushHistory();refresh();return;}
+  if(k&&t.tagName==='SELECT'){state[k]=t.value;pushHistory();refresh();return;}
+});
+ed.addEventListener('click',function(e){
+  var swb=e.target.closest('.sw'); if(swb){
+    var hidden=swb.parentElement.querySelector('[data-toggle]');
+    var path=hidden?hidden.getAttribute('data-toggle'):'';
+    if(path==='cta.on'){state.cta.on=!state.cta.on;pushHistory();rebuild();return;}
+    if(path==='confidentiality'){state.confidentiality=!state.confidentiality;swb.classList.toggle('on',state.confidentiality);pushHistory();refresh();return;}
+    return;
+  }
+  var rm=e.target.closest('[data-rm]'); if(rm){state[rm.getAttribute('data-rm')]='';pushHistory();rebuild();return;}
+  if(e.target.id==='clearAll'){['greeting','fullName','jobTitle','company','tagline','website','mobile','phone','email','address','office','disclaimer'].forEach(function(k){state[k]='';});Object.keys(state.social).forEach(function(k){state.social[k]='';});pushHistory();rebuild();return;}
+  var sp=e.target.closest('[data-spark]'); if(sp){suggest(sp.getAttribute('data-spark'));return;}
+});
+
+/* suggestions (client-side helper, not a network AI) */
+var SUG={ jobTitle:['Account Executive','Senior AE','Head of Procurement','Customer Success Manager','Founder & CEO'],
+  tagline:['AI Workforce for P2P','Procurement, on autopilot','Spend smarter, close faster','The AI procurement platform'],
+  website:['https://spendflo.com'],
+  disclaimer:['This email and any attachments are confidential and intended solely for the addressee. If received in error, please delete it.'] };
+var sugIdx={};
+function suggest(k){ var arr=SUG[k]; if(!arr)return; sugIdx[k]=((sugIdx[k]||0))% arr.length; state[k]=arr[sugIdx[k]]; sugIdx[k]++; pushHistory(); rebuild(); toast('Suggestion applied'); }
+
+document.getElementById('rail').addEventListener('click',function(e){var a=e.target.closest('[data-sec]');if(!a)return;state.section=a.getAttribute('data-sec');buildRail();var card=document.querySelector('[data-card="'+state.section+'"]')||document.querySelector('[data-card="'+(state.section==='details'?'details':state.section)+'"]');if(card)card.scrollIntoView({behavior:'smooth',block:'start'});persist();});
+
+document.getElementById('layouts').addEventListener('click',function(e){
+  var b=e.target.closest('[data-layout],[data-lnav]'); if(!b)return;
+  if(b.hasAttribute('data-layout')){state.layout=+b.getAttribute('data-layout');}
+  else if(b.hasAttribute('data-lnav')){state.layout=((state.layout-1+ +b.getAttribute('data-lnav'))%5+5)%5+1;}
+  pushHistory(); buildLayouts(); refresh();
+});
+
+document.getElementById('device').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;state.device=b.dataset.v;document.querySelectorAll('#device button').forEach(function(x){x.classList.toggle('on',x===b);});refresh();});
+document.getElementById('themeBtn').addEventListener('click',function(){state.bg=state.bg==='light'?'dark':'light';refresh();});
+
+/* toolbar */
+['accent','font','fontsize','detailsLabel','socialStyle'].forEach(function(id){var elx=document.getElementById(id);elx.addEventListener('input',function(){state[id]=elx.value;refresh();});elx.addEventListener('change',function(){state[id]=elx.value;pushHistory();rebuild();});});
+
+/* export */
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},1900);}
+function copyRich(){var html=renderSig();if(navigator.clipboard&&window.ClipboardItem){var h=new Blob([html],{type:'text/html'}),p=new Blob([plainText()],{type:'text/plain'});navigator.clipboard.write([new ClipboardItem({'text/html':h,'text/plain':p})]).then(function(){toast('Signature copied — paste into your email settings');}).catch(sel);}else sel();
+  function sel(){var d=document.createElement('div');d.contentEditable='true';d.style.cssText='position:fixed;left:-9999px';d.innerHTML=html;document.body.appendChild(d);var r=document.createRange();r.selectNodeContents(d);var s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand('copy');toast('Signature copied');}catch(e){toast('Copy failed');}s.removeAllRanges();d.remove();}}
+function downloadHtml(){var doc='<!doctype html><meta charset=utf-8><body style="margin:24px">'+renderSig()+'</body>';dl(new Blob([doc],{type:'text/html'}),'spendflo-signature.html');}
+function dl(blob,name){var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},1000);}
+function downloadPng(){
+  var node=document.getElementById('sig');var rect=node.getBoundingClientRect();var w=Math.ceil(rect.width)||520,h=Math.ceil(rect.height)||220;
+  var clone=node.cloneNode(true);var xml=new XMLSerializer().serializeToString(clone);
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'"><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml" style="background:#fff;padding:0">'+xml+'</div></foreignObject></svg>';
+  var img=new Image();img.onload=function(){var cv=document.createElement('canvas');cv.width=w*2;cv.height=h*2;var ctx=cv.getContext('2d');ctx.scale(2,2);ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);ctx.drawImage(img,0,0);cv.toBlob(function(b){if(b)dl(b,'spendflo-signature.png');else toast('PNG export not supported here');});};
+  img.onerror=function(){toast('PNG needs images on the same domain — try Download .html');};
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+document.getElementById('copyBtn').addEventListener('click',copyRich);
+var menu=document.getElementById('exportMenu');
+document.getElementById('exportBtn').addEventListener('click',function(e){e.stopPropagation();menu.classList.toggle('show');});
+document.addEventListener('click',function(){menu.classList.remove('show');});
+menu.addEventListener('click',function(e){var b=e.target.closest('[data-x]');if(!b)return;var x=b.getAttribute('data-x');
+  if(x==='gmail'||x==='outlook')copyRich();
+  else if(x==='html')navigator.clipboard.writeText(renderSig()).then(function(){toast('HTML copied');});
+  else if(x==='download')downloadHtml();
+  else if(x==='png')downloadPng();
+  else if(x==='reset'){if(confirm('Reset the builder to defaults?')){try{localStorage.removeItem(LS);}catch(e){}state=JSON.parse(JSON.stringify(DEF));pushHistory();rebuild();toast('Reset');}}
+  menu.classList.remove('show');
+});
+
+/* undo / redo */
+document.addEventListener('keydown',function(e){
+  var mod=e.metaKey||e.ctrlKey;
+  if(mod&&e.key.toLowerCase()==='z'&&!e.shiftKey){e.preventDefault();if(hi>0){hi--;state=JSON.parse(history[hi]);rebuild();toast('Undo');}}
+  else if(mod&&(e.key.toLowerCase()==='y'||(e.key.toLowerCase()==='z'&&e.shiftKey))){e.preventDefault();if(hi<history.length-1){hi++;state=JSON.parse(history[hi]);rebuild();toast('Redo');}}
+});
+/* commit history on text blur */
+ed.addEventListener('blur',function(){pushHistory();},true);
+
+/* boot */
+rebuild();
+})();
+</script>
+</body>
+</html>

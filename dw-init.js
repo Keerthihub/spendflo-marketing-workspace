@@ -342,7 +342,24 @@
     init(wrap);
   }
 
-  function applyAll() { restructureNav(); convertDocHd(); brandSwap(); injectSpendfloIcon(); mount(); }
+  function loadSigBuilder() {
+    if (location.pathname.indexOf('/systems/email-signature') === -1) return;
+    if (window.__sigLoaded) return; window.__sigLoaded = true;
+    var s = document.createElement('script'); s.defer = true; s.src = '/sig-builder.js?v=28';
+    document.head.appendChild(s);
+  }
+  function relabelEmailer() {
+    // Rename "Emailer" -> "Newsletter" in the nav, home index, related & prev/next links.
+    document.querySelectorAll('.navpanel a.np-row[href*="/systems/emailer"] .lb').forEach(function (n) { if (n.textContent.trim() === 'Emailer') n.textContent = 'Newsletter'; });
+    document.querySelectorAll('[href*="/systems/emailer"]').forEach(function (a) {
+      a.querySelectorAll('*').forEach(function (n) { if (n.children.length === 0 && n.textContent.trim() === 'Emailer') n.textContent = 'Newsletter'; });
+    });
+    if (location.pathname.indexOf('/systems/emailer') !== -1) {
+      var h = document.querySelector('.content .phero h1, .content .doc-title, .content h1');
+      if (h && h.textContent.trim() === 'Emailer') h.textContent = 'Newsletter';
+    }
+  }
+  function applyAll() { restructureNav(); relabelEmailer(); convertDocHd(); brandSwap(); injectSpendfloIcon(); loadSigBuilder(); mount(); }
   function schedule() { clearTimeout(timer); timer = setTimeout(applyAll, 120); }
 
   function init(root) {
@@ -397,7 +414,7 @@
     // "immutable", so appended rules there may never reach a returning visitor).
     if (!document.querySelector('link[data-dls-custom]')) {
       var l = document.createElement('link');
-      l.rel = 'stylesheet'; l.href = '/dls-custom.css?v=16'; l.setAttribute('data-dls-custom', '1');
+      l.rel = 'stylesheet'; l.href = '/dls-custom.css?v=28'; l.setAttribute('data-dls-custom', '1');
       document.head.appendChild(l);
     }
     // Swap brand ASAP too (best-effort pre-hydration), then keep it applied.

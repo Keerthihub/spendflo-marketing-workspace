@@ -401,7 +401,7 @@ const findB=id=>{for(const p of state.pages){const i=p.blocks.findIndex(b=>b.id=
 
 function render(){
   $("#doc").className="docwrap "+(state.size==="a5"?"a5":"");
-  $("#clientIn").value=state.client;
+  {var _ci=$("#clientIn");if(_ci)_ci.value=state.client;}
   const N=state.pages.length;
   $("#doc").innerHTML=state.pages.map((pg,pi)=>{
     const isCover=pg.blocks.length===1&&pg.blocks[0].type==="cover";
@@ -420,7 +420,7 @@ function render(){
       <div class="sheet-foot"><img src="${SF_LOGO_BLACK}" alt="Spendflo"><span class="cb">${state.client}</span><span class="pn">spendflo.com · <b>${String(pi+1).padStart(2,"0")}</b> / ${String(N).padStart(2,"0")}</span></div>
     </div>`;}).join("");
 }
-$("#clientIn").addEventListener("input",e=>{state.client=e.target.value;clearTimeout(window._ct);window._ct=setTimeout(()=>{snap();render();},700);});
+if($("#clientIn"))$("#clientIn").addEventListener("input",e=>{state.client=e.target.value;clearTimeout(window._ct);window._ct=setTimeout(()=>{snap();render();},700);});
 
 /* block + page tools */
 $("#doc").addEventListener("click",e=>{

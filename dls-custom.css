@@ -419,3 +419,124 @@ a.lg-card:hover{ transform:translateY(-3px); box-shadow:0 12px 24px -10px rgba(0
 
 /* Remove Brand assets everywhere (nav, home index, related, prev/next) */
 a[href*="/foundations/brand-assets"]{ display:none !important; }
+
+/* ================= Email Signature Builder ================= */
+#sig-builder{ --sg-accent:#e92589; --sg-ink:#1c1917; --sg-sub:#6b7280; --sg-line:#e7e5e4; --sg-bg:#fdfcfc; margin-top:8px; }
+.sig-wrap{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:26px; align-items:start; }
+.sig-form{ display:flex; flex-direction:column; gap:16px; min-width:0; }
+.sig-card{ background:#fff; border:1px solid var(--sg-line); border-radius:16px; padding:18px 18px 20px; }
+.sig-h{ font-family:var(--font-mono,monospace); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--sg-accent); margin-bottom:12px; }
+.sig-f{ display:block; margin-top:12px; }
+.sig-f:first-of-type{ margin-top:0; }
+.sig-f>span{ display:block; font-size:12.5px; color:var(--sg-sub); margin-bottom:6px; font-weight:500; }
+.sig-in{ width:100%; box-sizing:border-box; border:1px solid var(--sg-line); border-radius:10px; padding:10px 12px; font:inherit; font-size:14px; color:var(--sg-ink); background:#fff; transition:border-color .15s, box-shadow .15s; }
+.sig-in:focus{ outline:none; border-color:var(--sg-accent); box-shadow:0 0 0 3px rgba(233,37,137,.14); }
+select.sig-in{ appearance:none; cursor:pointer; }
+.sig-note{ min-height:0; color:#c0392b; font-size:12px; }
+.sig-note:not(:empty){ margin:2px 0 -4px; }
+.sig-tpls{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.sig-tpl{ text-align:left; border:1px solid var(--sg-line); background:#fff; border-radius:12px; padding:11px 12px; cursor:pointer; transition:transform .15s, border-color .15s, box-shadow .15s; }
+.sig-tpl:hover{ transform:translateY(-1px); box-shadow:0 8px 18px -12px rgba(0,0,0,.16); }
+.sig-tpl.on{ border-color:var(--sg-accent); box-shadow:0 0 0 2px rgba(233,37,137,.18); }
+.sig-tpl b{ display:block; font-size:13.5px; color:var(--sg-ink); }
+.sig-tpl em{ display:block; font-style:normal; font-size:11.5px; color:var(--sg-sub); margin-top:2px; }
+.sig-toggle{ display:flex; align-items:center; gap:10px; font-size:13.5px; color:var(--sg-ink); cursor:pointer; margin-top:6px; }
+.sig-toggle.sm{ font-size:12.5px; }
+.sig-toggle input{ position:absolute; opacity:0; width:0; height:0; }
+.sig-tk{ width:38px; height:22px; border-radius:999px; background:#d6d3d1; position:relative; transition:background .2s; flex:0 0 auto; }
+.sig-tk::after{ content:""; position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:999px; background:#fff; transition:transform .2s; box-shadow:0 1px 3px rgba(0,0,0,.2); }
+.sig-toggle input:checked + .sig-tk{ background:var(--sg-accent); }
+.sig-toggle input:checked + .sig-tk::after{ transform:translateX(16px); }
+.sig-upl{ display:inline-block; margin-top:12px; font-size:12.5px; color:var(--sg-accent); cursor:pointer; }
+.sig-upl input{ display:block; margin-top:6px; font-size:12px; color:var(--sg-sub); }
+
+/* preview */
+.sig-preview{ position:sticky; top:20px; }
+.sig-pv-bar{ display:flex; justify-content:space-between; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+.sig-seg{ display:inline-flex; background:#f4f3f2; border:1px solid var(--sg-line); border-radius:10px; padding:3px; }
+.sig-seg button{ border:0; background:transparent; padding:6px 12px; font:inherit; font-size:12.5px; color:var(--sg-sub); border-radius:8px; cursor:pointer; transition:background .15s,color .15s; }
+.sig-seg button.on{ background:#fff; color:var(--sg-ink); box-shadow:0 1px 3px rgba(0,0,0,.1); }
+.sig-stage{ border:1px solid var(--sg-line); border-radius:16px; padding:30px; min-height:280px; display:flex; justify-content:center; transition:background .3s; overflow:auto; }
+.sig-stage.light{ background:#ffffff; }
+.sig-stage.dark{ background:#111114; }
+.sig-canvas{ width:100%; }
+.sig-stage.mobile .sig-canvas{ max-width:340px; }
+.sig-stage.desktop .sig-canvas{ max-width:520px; }
+.sig-exports{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+.sig-x{ border:1px solid var(--sg-line); background:#fff; color:var(--sg-ink); border-radius:10px; padding:9px 14px; font:inherit; font-size:13px; font-weight:500; cursor:pointer; transition:transform .15s, box-shadow .15s, background .15s; }
+.sig-x:hover{ transform:translateY(-1px); box-shadow:0 8px 18px -12px rgba(0,0,0,.2); }
+.sig-x.primary{ background:var(--sg-accent); color:#fff; border-color:var(--sg-accent); }
+.sig-x.ghost{ color:var(--sg-sub); }
+.sig-toast{ margin-top:10px; font-size:13px; color:var(--sg-accent); font-weight:500; opacity:0; transform:translateY(4px); transition:opacity .25s, transform .25s; }
+.sig-toast.show{ opacity:1; transform:none; }
+
+/* admin */
+.sig-admin{ background:#fff; border:1px solid var(--sg-line); border-radius:16px; padding:6px 18px; }
+.sig-admin summary{ cursor:pointer; font-weight:600; font-size:14px; color:var(--sg-ink); padding:12px 0; list-style:none; }
+.sig-admin summary::-webkit-details-marker{ display:none; }
+.sig-admin summary::before{ content:"⚙ "; }
+.sig-admin-b{ padding:4px 0 16px; }
+.sig-admin-b .sig-h{ margin-top:18px; }
+.sig-cols{ display:flex; gap:14px; flex-wrap:wrap; }
+.sig-col{ display:flex; flex-direction:column; align-items:center; gap:5px; font-size:11px; color:var(--sg-sub); }
+.sig-col input{ width:40px; height:32px; border:1px solid var(--sg-line); border-radius:8px; padding:0; background:none; cursor:pointer; }
+.sig-admgrid{ display:grid; grid-template-columns:1fr 1fr; gap:4px 14px; }
+.sig-lib{ display:flex; justify-content:space-between; align-items:center; font-size:13px; padding:6px 0; border-bottom:1px solid var(--sg-line); }
+.sig-lib button, .sig-libadd button, .sig-admin-b [data-adm-addban]{ border:0; background:none; color:var(--sg-accent); cursor:pointer; font:inherit; font-size:12.5px; }
+.sig-libadd{ display:flex; gap:8px; margin-top:8px; }
+textarea.sig-in{ resize:vertical; font-family:inherit; }
+@media (max-width:900px){ .sig-wrap{ grid-template-columns:1fr; } .sig-preview{ position:static; } }
+
+/* signature preview: don't clip; allow scroll */
+.sig-stage{ overflow:auto; }
+.sig-stage.desktop .sig-canvas{ max-width:100%; }
+.sig-full{ border:1px solid var(--sg-line); background:#fff; color:var(--sg-ink); border-radius:10px; padding:6px 12px; font:inherit; font-size:12.5px; font-weight:500; cursor:pointer; }
+.sig-full:hover{ box-shadow:0 6px 14px -8px rgba(0,0,0,.25); }
+/* full-view modal */
+#sig-modal{ position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:24px; }
+.sig-modal-back{ position:absolute; inset:0; background:rgba(20,10,16,.55); backdrop-filter:blur(3px); }
+.sig-modal-card{ position:relative; background:#fff; border-radius:18px; width:min(920px,94vw); max-height:90vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 40px 100px -30px rgba(0,0,0,.5); }
+.sig-modal-bar{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 18px; border-bottom:1px solid var(--sg-line); font-weight:600; color:var(--sg-ink); flex-wrap:wrap; }
+.sig-modal-tools{ display:flex; align-items:center; gap:10px; }
+.sig-modal-x{ border:0; background:#f4f3f2; width:32px; height:32px; border-radius:8px; cursor:pointer; font-size:14px; color:var(--sg-ink); }
+.sig-modal-stage{ padding:44px; overflow:auto; transition:background .3s; }
+.sig-modal-stage.light{ background:#fff; } .sig-modal-stage.dark{ background:#111114; }
+.sig-modal-canvas{ display:flex; justify-content:center; }
+@media (max-width:560px){ .sig-modal-stage{ padding:22px; } }
+
+/* ===== Signature Builder launcher (compact, on the email-signature page) ===== */
+#sig-launch{ display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center;
+  background:#fff; border:1px solid var(--border-card,#e7e5e4); border-radius:22px; padding:34px; margin-top:8px;
+  box-shadow:0 1px 2px rgba(16,24,40,.04); }
+.sl-eyebrow{ font-family:var(--font-mono,monospace); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--magenta,#e92589); }
+.sl-title{ font-family:var(--font-display,inherit); font-size:32px; font-weight:600; letter-spacing:-.02em; margin:10px 0 0; }
+.sl-desc{ color:var(--text-secondary,#667085); font-size:15px; line-height:1.6; margin:12px 0 0; max-width:44ch; }
+.sl-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.sl-chips span{ font-size:12.5px; color:var(--text-secondary,#667085); background:var(--bg-card,#f4f3f2); border:1px solid var(--border-card,#e7e5e4); border-radius:999px; padding:5px 12px; }
+.sl-actions{ display:flex; gap:10px; margin-top:22px; flex-wrap:wrap; }
+.sl-btn{ border:1px solid var(--border-card,#e7e5e4); background:#fff; color:var(--ink,#1c1917); border-radius:12px; padding:12px 20px; font:inherit; font-size:14px; font-weight:600; cursor:pointer; transition:transform .15s, box-shadow .15s; }
+.sl-btn:hover{ transform:translateY(-1px); box-shadow:0 12px 26px -14px rgba(0,0,0,.3); }
+.sl-btn.primary{ background:var(--magenta,#e92589); color:#fff; border-color:var(--magenta,#e92589); }
+.sl-note{ margin-top:12px; font-size:13px; color:var(--magenta,#e92589); min-height:18px; font-weight:500; }
+.sl-right{ display:flex; justify-content:center; }
+.sl-mail{ width:100%; max-width:420px; background:#fff; border:1px solid var(--border-card,#e7e5e4); border-radius:16px; overflow:hidden; box-shadow:0 24px 50px -24px rgba(16,24,40,.28); }
+.sl-mailbar{ display:flex; align-items:center; gap:6px; padding:12px 14px; border-bottom:1px solid var(--border-card,#e7e5e4); background:#faf9f9; }
+.sl-mailbar span{ width:9px; height:9px; border-radius:50%; background:#e4e4e7; }
+.sl-mailbar em{ margin-left:10px; font-style:normal; font-family:var(--font-mono,monospace); font-size:11.5px; color:var(--text-muted,#98a2b3); }
+.sl-mailbody{ padding:26px 22px; overflow:auto; }
+.sl-mailbody table{ max-width:100%; }
+@media (max-width:820px){ #sig-launch{ grid-template-columns:1fr; gap:24px; padding:26px; } .sl-title{ font-size:26px; } }
+
+/* Embed full builder inline on the email-signature page */
+.content:has(#sig-embed){ max-width:none; }
+#sig-embed{ border:1px solid var(--border-card,#e7e5e4); border-radius:18px; overflow:hidden;
+  box-shadow:0 24px 60px -34px rgba(16,24,40,.35); margin:6px 0 12px; background:#fff; }
+#sig-embed iframe{ display:block; width:100%; height:min(840px,calc(100vh - 90px)); min-height:640px; border:0; background:#fff; }
+@media (max-width:820px){ #sig-embed iframe{ height:calc(100vh - 90px); min-height:900px; } }
+
+/* ensure the embedded builder section is always visible + header bar */
+.content #builder{ opacity:1 !important; transform:none !important; }
+.sig-embed-bar{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+  margin:4px 0 12px; font-size:13.5px; color:var(--text-secondary,#667085); }
+.sig-embed-bar a{ color:var(--magenta,#e92589); font-weight:600; text-decoration:none; }
+.sig-embed-bar a:hover{ text-decoration:underline; }

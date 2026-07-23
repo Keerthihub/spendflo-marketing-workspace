@@ -209,3 +209,124 @@ Hidden every link to /foundations/brand-assets via dls-custom.css
 (a[href*="/foundations/brand-assets"]) — sidebar nav, the home "How to use this"
 index, related-page chips, and prev/next links. Removed the obsolete brand-above-logo
 reorder from restructureNav. The page still exists by direct URL. Cache bumped to v16.
+
+## 12. Email Signature Builder (/systems/email-signature)
+New file /sig-builder.js (loaded by dw-init.js only on that route; self-mounts after
+hydration, re-mounts on client nav). Two-column DLS UI: form controls left, sticky live
+preview right.
+  - 7 templates: Standard Corporate, Community CTA, Marketing Banner, Minimal,
+    Executive, Sales, Events & Campaign.
+  - Editable fields: name, title, department, company, email, phone, website, profile
+    image URL, LinkedIn, X, YouTube, Slack, GitHub, calendar, CTA (preset text + URL),
+    promotional banner (library / paste URL / upload).
+  - Live preview with Desktop/Mobile and Light/Dark toggles; empty fields auto-hidden;
+    email validated; phone auto-formatted.
+  - Output is bulletproof: table-based, inline-CSS, absolute asset URLs (uses
+    location.origin), email-safe raster logos/icons. Exports: Copy signature (rich —
+    ClipboardItem text/html with execCommand fallback), Copy HTML, Copy text,
+    Download .html, Reset.
+  - Brand-Team admin panel (in-page): brand colours, approved templates, social icon
+    set, CTA style (solid/outline), banner library (add/remove), default disclaimer.
+    Config + last signature persist in localStorage.
+  - New assets: email-safe PNG logos (brand/spendflo-full-colour-black/white.png),
+    monochrome icon set (/icons/social/*.png), default banners (brand/banner-*.png).
+Cache bumped to v17.
+
+## 13. Signature redesign (reference match) + full-view mode
+  - New signature layout matching the requested reference: branded square tile
+    (maroon gradient + Spendflo icon, brand/spendflo-avatar.png) or the user's profile
+    photo, a hairline divider, greeting ("Cheers!"), "Name | Role", "Spendflo | tagline"
+    (Spendflo in brand magenta), contact rows, black rounded-square social badges, and a
+    pink pill CTA; optional full-width banner below.
+  - New fields: greeting, company tagline, WhatsApp. New black badge icon set
+    (/icons/social/black/*.png incl. whatsapp).
+  - Full-view mode: an "⤢ Full view" button opens the signature in a large modal
+    (light/dark toggle + Copy inside, Esc/backdrop to close) so the whole signature is
+    always visible regardless of column width. Inline preview no longer clips (scrolls).
+Cache bumped to v19.
+
+## 14. Full view opens in a new window
+The signature "↗ Open full view" button now opens a dedicated full-screen preview in a
+NEW browser window (like a builder's open-full-screen): a standalone page with the
+Spendflo header, Desktop/Mobile + Light/Dark toggles, and Copy signature / Download
+buttons, showing the signature at full size. Assets resolve via same-origin absolute
+URLs. If pop-ups are blocked it falls back to the in-page modal. Cache bumped to v20.
+
+## 15. Full-screen Signature Builder app (/signature-builder.html)
+Standalone full-screen builder matching the Newsletter-Builder UX (self-contained
+HTML/CSS/JS, hosted at /signature-builder.html):
+  - Top header: Spendflo lockup, "Auto saved", Desktop/Mobile, preview dark toggle,
+    Copy, and an Export menu (Copy for Gmail/Outlook, Copy HTML, Download .html,
+    Download .png, Reset).
+  - Left icon rail: Details, Images, Social, Apps, Company, Branding (scroll-to).
+  - Middle: big rounded editor cards (Details, Contact, Images w/ upload+URL, Social,
+    Apps, Company/legal, Branding) with sparkle "Suggest" helpers (curated, client-side).
+  - Right: live preview artboard (email-client chrome) + a toolbar (accent colour,
+    font, size, Details label icon/text, Socials theme/colour) + numbered layout picker
+    1–8 with an AI-shuffle, and a Desktop/Mobile + light/dark artboard.
+  - 8 signature layouts, all bulletproof table/inline-CSS with absolute asset URLs.
+  - Autosave to localStorage, Undo/Redo (Cmd/Ctrl+Z / Shift+Z), responsive.
+  - The in-page tool's "Open full-screen builder" button now launches this app.
+Note: it's a static single-file app (no backend), so the sparkle "Suggest" buttons use
+built-in curated suggestions rather than a live AI service, and PNG export is
+best-effort (works when assets are same-origin). Cache bumped to v21.
+
+## 16. Email-signature page: compact launcher (replaces long inline builder)
+The long inline form/preview/admin on /systems/email-signature is replaced by a short,
+premium launcher card: intro copy + feature chips + a sample signature preview (inside a
+mini mail-window), a primary "Open the builder ↗" button (opens /signature-builder.html)
+and a "Copy a sample" button. The full editing experience now lives entirely in the
+full-screen app. Cache bumped to v22.
+
+## 17. Email-signature page now embeds the full builder inline
+Replaced the launcher with the full builder embedded directly on /systems/email-signature
+via an iframe of /signature-builder.html (allow clipboard). The page header/meta/rule and
+related links are hidden so the builder fills the space (height ~calc(100vh-120px)).
+Cache bumped to v23.
+
+## 18. Restore header + Rules around the embedded builder
+The embedded builder now lives inside the page's existing #builder section (keeping its
+"Build your signature" heading); the phero page header and the #rules section are left
+visible. So the page reads: header → Builder (embedded full app) → Rules. Embed height
+tuned to min(840px, calc(100vh-90px)). Cache bumped to v24.
+
+## 19. Rename Emailer -> Newsletter; harden signature page header/embed
+  - relabelEmailer() in dw-init.js renames "Emailer" to "Newsletter" in the sidebar nav,
+    the home index, related-page chips, prev/next links, and the /systems/emailer page H1.
+  - Email-signature page: added a header bar above the embedded builder with an "Open in a
+    new tab ↗" fallback link, and forced #builder visible (opacity:1) so the embed always
+    shows alongside the page header and Rules section.
+Cache bumped to v25.
+
+## 20. Signature Builder updates (/signature-builder.html)
+  1. CTA is now fully editable: custom text, link, style (solid/outline) and colour, plus on/off.
+  2. Layout 1 (Classic Left) spacing evened out (middle-aligned, consistent padding + accent rule).
+  3. Layout formerly #6 (Executive) no longer shows the full Spendflo logo.
+  4. Removed Options 2 (Classic Right) and 8 (Card); layouts renumbered to 1–6.
+  5. Removed the "Surprise Me" (AI shuffle) control.
+  6. Images section redesigned: one Company logo upload + one Event image (banner) upload,
+     cleaner drop-zone UI with preview/remove and URL paste. Profile photo field removed;
+     Event image renders as a full-width banner under the signature. Embed cache-busted (?v=26).
+
+## 21. Signature tweaks + Case Study fix + Newsletter (partial)
+Signature Builder: Layout 1 logo top-aligned with a thin hairline divider (was a bold 2px
+accent rule); removed Layout 6 (Split) -> 5 layouts; confirmed no full Spendflo logo in any
+layout. (?v=27)
+Case Study Builder: fixed the load crash — render() called $("#clientIn").value on a null
+element, which threw and blocked editing; guarded it (and its listener). The builder now
+loads clean and is editable.
+Newsletter Builder: removed the Product Screen block (palette + templates) and removed the
+divider from the Header Lockup (preview + email export).
+Still to do on Newsletter: remove inline Insert-Block +, collapse emptied text, custom CTA
+colour, remove one of two CTAs, H1–H6 text blocks, Testimonial block.
+
+## 22. Newsletter Builder — full update (/tools/newsletter-builder.html)
+  1. Removed the inline "Insert Block" + control (blocks still added via the left palette
+     click/drag). 2. Added an editable Text block with H1–H6 + paragraph (variant picks the
+     level; preview + email renders). 3. Testimonial block present (the "Testimonial" block).
+  4. Empty contentEditable lines now collapse (no leftover gap) and expand on focus.
+  5. CTA colour is fully customisable per block (inspector colour picker; applied in preview
+     + email export for hero/cta/twoup/button). 6. Second CTA can be removed per block via a
+     Two/One toggle (hero + CTA banner). Tool iframes cache-busted (?v=2); site ?v=28.
+Also (prev turn): removed Product Screen block and the Header Lockup divider; fixed the
+Case Study builder load crash so it's editable.
