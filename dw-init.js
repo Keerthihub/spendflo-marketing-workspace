@@ -345,7 +345,7 @@
   function loadSigBuilder() {
     if (location.pathname.indexOf('/systems/email-signature') === -1) return;
     if (window.__sigLoaded) return; window.__sigLoaded = true;
-    var s = document.createElement('script'); s.defer = true; s.src = '/sig-builder.js?v=28';
+    var s = document.createElement('script'); s.defer = true; s.src = '/sig-builder.js?v=29';
     document.head.appendChild(s);
   }
   function relabelEmailer() {
@@ -414,7 +414,7 @@
     // "immutable", so appended rules there may never reach a returning visitor).
     if (!document.querySelector('link[data-dls-custom]')) {
       var l = document.createElement('link');
-      l.rel = 'stylesheet'; l.href = '/dls-custom.css?v=28'; l.setAttribute('data-dls-custom', '1');
+      l.rel = 'stylesheet'; l.href = '/dls-custom.css?v=29'; l.setAttribute('data-dls-custom', '1');
       document.head.appendChild(l);
     }
     // Swap brand ASAP too (best-effort pre-hydration), then keep it applied.

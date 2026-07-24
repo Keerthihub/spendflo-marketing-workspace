@@ -13,6 +13,7 @@
 #mail b,#mail strong{font-weight:600}
 [contenteditable]:empty{min-height:0;line-height:0;}
 [contenteditable]:empty:focus{line-height:1.45;min-height:1em;}
+.al-left,.al-left *{text-align:left!important}.al-center,.al-center *{text-align:center!important}.al-right,.al-right *{text-align:right!important}
 </style>
 <style>
 :root{
@@ -438,7 +439,7 @@ function emailBlock(b){const d=b.data,v=b.variant,T=(s)=>esc(s);const L=f=>(d._l
     case "image":return pad(d.src?`<div style="padding:${v==="full"?"0":"14px 26px"};"><img src="${d.src}" width="${v==="full"?"600":"548"}" style="display:block;width:100%;border-radius:${v==="rounded"?"12px":"0"};" alt="${esc((d.alt||"").replace(/<[^>]*>/g,""))}"><div style="font-family:Arial;font-size:12px;color:#a8a29e;text-align:center;padding:8px 0;">${d.cap}</div></div>`:"");
   }return "";}
 function emailHTML(){
-  const rows=state.blocks.map(emailBlock).join("\n");
+  const rows=state.blocks.map(b=>{const h=emailBlock(b);return b.data._align?h.replace("<td ","<td align=\""+b.data._align+"\" "):h;}).join("\n");
   return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Spendflo newsletter</title></head><body style="margin:0;padding:0;background:#f4f1ee;"><center><table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#ffffff;border-radius:12px;overflow:hidden;margin:24px auto;">${rows}</table></center></body></html>`;}
 
 /* ── templates ── */
@@ -460,7 +461,7 @@ function render(){
     <div class="ind" data-i="${i}"></div>
     <div class="bwrap" draggable="false" data-id="${b.id}">
       <div class="tools"><button class="grab" title="Drag" data-a="drag">⠿</button></div>
-      ${CR[b.type](b)}
+      <div class="balign${b.data._align?(" al-"+b.data._align):""}">${CR[b.type](b)}</div>
     </div>`).join("")+`<div class="ind" data-i="${state.blocks.length}"></div>`;
 }
 const idx=id=>state.blocks.findIndex(b=>b.id===id);
@@ -685,7 +686,7 @@ function paintInsp(){
     h+='<div class="ilab">Block</div>';
     if(!b){h+='<div class="iempty">Select a block on the canvas to edit it here. Add blocks from the palette on the left.</div>';}
     else{const R=REG[b.type];
-      h+=`<div class="icard"><div class="it">${TICON(b.type)}${R.n}</div><div class="id2">${R.d}</div>`;
+      h+=`<div class="icard"><div class="it">${TICON(b.type)}${R.n}</div><div class="id2">${R.d}</div>`;h+=`<div class="ifield"><label>Align</label></div><div class="iseg"><button data-ialign="left" class="${(b.data._align||"")==="left"?"on":""}">Left</button><button data-ialign="center" class="${b.data._align==="center"?"on":""}">Center</button><button data-ialign="right" class="${b.data._align==="right"?"on":""}">Right</button></div>`;
       if(R.v&&R.v.length>1){h+='<div class="ifield"><label>Variant</label></div><div class="iseg">'+R.v.map(v=>`<button data-iv="${v}" class="${b.variant===v?"on":""}">${v}</button>`).join("")+'</div>';}
       if(R.link){b.data._links=b.data._links||{};h+=R.link.map(fl=>`<div class="ifield"><label>Link · ${String(b.data[fl]||fl).replace(/<[^>]*>/g,"").slice(0,18)}</label><input data-ilink="${fl}" value="${(b.data._links[fl]||"https://www.spendflo.com/").replace(/"/g,"&quot;")}"/></div>`).join("");h+=`<div class="ifield"><label>Button colour</label><input type="color" data-icolor value="${b.data._btncolor||MAROON}"></div>`;if(R.link.length>1)h+=`<div class="ifield"><label>Buttons</label></div><div class="iseg"><button data-ihide2="0" class="${!b.data._hide2?"on":""}">Two</button><button data-ihide2="1" class="${b.data._hide2?"on":""}">One</button></div>`;}
       h+='<div class="iico"><button data-iact="up" title="Move up">'+SVG("aup")+'</button><button data-iact="dn" title="Move down">'+SVG("adn")+'</button><button data-iact="dup" title="Duplicate">'+SVG("dup")+'</button><button data-iact="del" class="danger" title="Delete">'+SVG("trash")+'</button></div></div>';}
@@ -694,6 +695,7 @@ function paintInsp(){
 }
 $("#insp").addEventListener("click",e=>{
   const tb=e.target.closest(".itabs button");if(tb){itab=tb.dataset.it;$$(".itabs button").forEach(x=>x.classList.toggle("on",x===tb));paintInsp();return;}
+  const al=e.target.closest("[data-ialign]");if(al&&sel){state.blocks[idx(sel)].data._align=al.dataset.ialign;snap();render();return;}
   const v=e.target.closest("[data-iv]");if(v&&sel){const b=state.blocks[idx(sel)];b.variant=v.dataset.iv;snap();render();return;}
   const hd=e.target.closest("[data-ihide2]");if(hd&&sel){state.blocks[idx(sel)].data._hide2=hd.dataset.ihide2==="1";snap();render();return;}
   const a=e.target.closest("[data-iact]");if(a&&sel){ops2(sel,a.dataset.iact);return;}

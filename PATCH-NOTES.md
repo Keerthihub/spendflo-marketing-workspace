@@ -330,3 +330,12 @@ colour, remove one of two CTAs, H1–H6 text blocks, Testimonial block.
      Two/One toggle (hero + CTA banner). Tool iframes cache-busted (?v=2); site ?v=28.
 Also (prev turn): removed Product Screen block and the Header Lockup divider; fixed the
 Case Study builder load crash so it's editable.
+
+## 23. Block alignment (Left / Center / Right) across all block builders
+Added a per-block Alignment control (Left / Center / Right) to the inspector of all three
+block builders — Newsletter, Case Study, and Whitepaper. Selecting a block shows the
+control; choosing an option wraps the block in .balign al-{left|center|right} (CSS forces
+text-align with !important so it overrides a block's built-in alignment). The Newsletter
+email export also honours it (injects align="" on the block's cell). Also fixed a
+pre-existing load crash in the Whitepaper builder (null $("#clientIn").value), which now
+loads and edits cleanly. Tool iframes -> ?v=3; site -> ?v=29.
