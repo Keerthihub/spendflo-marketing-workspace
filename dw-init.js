@@ -255,18 +255,6 @@
   function restructureNav() {
     var foundations = navGroup('Foundations');
     if (!foundations) return;
-    // Background remover is a static companion page, so add it at runtime to
-    // every exported Next page instead of editing every generated HTML file.
-    var systems = navGroup('Systems');
-    if (systems && !systems.querySelector('a[href*="/systems/background-remover"]')) {
-      var holder = document.createElement('div');
-      var active = location.pathname.indexOf('/systems/background-remover') !== -1 ? ' active' : '';
-      holder.innerHTML = '<a class="np-row' + active + '" href="/systems/background-remover/">' +
-        '<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-        '<path d="m12 3-1.6 4.4L6 9l4.4 1.6L12 15l1.6-4.4L18 9l-4.4-1.6L12 3Z"/><path d="m5 15-.8 2.2L2 18l2.2.8L5 21l.8-2.2L8 18l-2.2-.8L5 15Z"/><path d="M19 14v7M15.5 17.5h7"/></svg></span>' +
-        '<span class="lb">AI Background Remover</span><span class="tg">AI</span></a>';
-      systems.appendChild(holder);
-    }
     // Move Spacing & layout into Foundations (at the end)
     var spaceW = navWrapper('/tokens/space-layout');
     if (spaceW && spaceW.parentElement !== foundations) foundations.appendChild(spaceW);

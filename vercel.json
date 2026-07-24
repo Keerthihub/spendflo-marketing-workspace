@@ -3,13 +3,6 @@
   "trailingSlash": true,
   "headers": [
     {
-      "source": "/systems/background-remover/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
-      ]
-    },
-    {
       "source": "/dw-init.js",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
     },
