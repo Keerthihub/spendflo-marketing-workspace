@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI Background Remover · Spendflo</title>
+  <meta name="description" content="Remove image backgrounds with AI, refine the result, and export a transparent PNG.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/_next/static/css/8ff0a12c457935ae.css">
+  <link rel="stylesheet" href="/dls-custom.css?v=30">
+  <link rel="stylesheet" href="/systems/background-remover/remover.css?v=1">
+</head>
+<body class="br-body">
+<div class="br-app">
+  <aside class="br-nav" id="nav">
+    <a class="br-logo" href="/"><img src="/brand/spendflo-full-colour-white.svg" alt="Spendflo"></a>
+    <div class="br-nav-title">Design Language System</div>
+    <a class="br-nav-home" href="/">← Back to overview</a>
+    <div class="br-nav-label">Systems</div>
+    <a href="/systems/case-study/">Case study</a>
+    <a href="/systems/emailer/">Newsletter</a>
+    <a href="/systems/whitepaper/">Whitepaper</a>
+    <a href="/systems/email-signature/">Email signature</a>
+    <a href="/systems/social-ads/">Social &amp; ads</a>
+    <a class="active" href="/systems/background-remover/"><span>✦</span> AI Background Remover</a>
+  </aside>
+  <button class="br-menu" id="menu" aria-label="Toggle navigation">☰</button>
+
+  <main class="br-main">
+    <section class="br-layout">
+      <div class="br-story">
+        <div class="br-kicker"><span>✦</span> AI CREATIVE TOOL</div>
+        <h1>AI Background<br><em>Remover</em></h1>
+        <p class="br-lede">Remove backgrounds in seconds using AI. Perfect for product shots, profile photos, presentations, marketing creatives, and social media.</p>
+        <button class="br-primary br-try" data-pick>Try now <span>→</span></button>
+
+        <div class="br-hero-art" aria-hidden="true">
+          <div class="br-orbit one"></div><div class="br-orbit two"></div>
+          <div class="br-cutout"><div class="br-head"></div><div class="br-body-shape"></div></div>
+          <div class="br-scan"></div><span class="spark s1">✦</span><span class="spark s2">✦</span>
+          <div class="br-chip">BACKGROUND<br><b>REMOVED</b></div>
+        </div>
+
+        <div class="br-features">
+          <article><i>⚡</i><div><b>Instant AI processing</b><span>Results within seconds.</span></div></article>
+          <article><i>◎</i><div><b>Pixel-perfect detection</b><span>Preserves hair and fine edges.</span></div></article>
+          <article><i>▧</i><div><b>HD export</b><span>Transparent PNG downloads.</span></div></article>
+          <article><i>☁</i><div><b>Batch ready</b><span>Designed to scale next.</span></div></article>
+        </div>
+
+        <div class="br-rules">
+          <div><span class="br-rules-title">Image guidelines</span><strong>JPG · PNG · WEBP</strong></div>
+          <ul><li>Up to 20MB</li><li>500–10,000px recommended</li><li>Clean light, one subject, no motion blur</li></ul>
+        </div>
+      </div>
+
+      <div class="br-builder" id="builder">
+        <div class="br-builder-head">
+          <div><span class="status-dot"></span> AI workspace</div>
+          <span class="br-secure">Secure processing</span>
+        </div>
+
+        <section class="br-panel br-upload" id="uploadPanel">
+          <input id="file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+          <div class="br-upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v5h14v-5"/></svg></div>
+          <h2>Drop your image here</h2>
+          <p>or choose how you want to add it</p>
+          <button class="br-primary" data-pick>Browse files</button>
+          <div class="br-alt">
+            <button id="pasteBtn"><span>⌘V</span> Paste image</button>
+            <button id="urlBtn"><span>↗</span> Paste URL</button>
+          </div>
+          <form id="urlForm" class="br-url" hidden>
+            <input id="urlInput" type="url" placeholder="https://example.com/photo.jpg" aria-label="Image URL" required>
+            <button type="submit">Add</button>
+          </form>
+          <div class="br-formats">JPG, PNG or WEBP · Maximum 20MB</div>
+          <div class="br-drop-shine"></div>
+        </section>
+
+        <section class="br-panel br-process" id="processPanel" hidden>
+          <div class="br-ai-loader"><span></span><span></span><span></span><i>✦</i></div>
+          <h2>AI is removing your background…</h2>
+          <p>Detecting subject, refining edges, preserving detail</p>
+          <div class="br-progress"><i id="progress"></i></div>
+          <span id="progressText">Preparing image · 2–5 sec</span>
+        </section>
+
+        <section class="br-editor" id="editor" hidden>
+          <div class="br-canvas-top">
+            <div class="br-tabs"><button class="on" data-view="compare">Before / After</button><button data-view="after">After</button></div>
+            <div class="br-history"><button id="undo" title="Undo" disabled>↶</button><button id="redo" title="Redo" disabled>↷</button><button id="reset" title="Start over">Reset</button></div>
+          </div>
+          <div class="br-canvas-wrap" id="canvasWrap">
+            <canvas id="canvas"></canvas>
+            <div class="br-compare-label before">Before</div><div class="br-compare-label after">After</div>
+            <input id="compare" class="br-slider" type="range" min="0" max="100" value="50" aria-label="Before and after comparison">
+          </div>
+          <div class="br-toolbar" role="toolbar" aria-label="Editing tools">
+            <label>Scale <input id="scale" type="range" min="50" max="180" value="100"><output>100%</output></label>
+            <label>Rotate <input id="rotate" type="range" min="-180" max="180" value="0"><output>0°</output></label>
+            <label>Feather <input id="feather" type="range" min="0" max="12" value="0"><output>0px</output></label>
+            <label>Background
+              <span class="br-swatches">
+                <button data-bg="transparent" class="check on" title="Transparent"></button>
+                <button data-bg="#ffffff" style="--sw:#fff" title="White"></button>
+                <button data-bg="#111111" style="--sw:#111" title="Black"></button>
+                <button data-bg="gradient" class="grad" title="Gradient"></button>
+                <input id="color" type="color" value="#e92589" title="Custom color">
+              </span>
+            </label>
+          </div>
+          <div class="br-download">
+            <div><b>Background removed</b><span>Ready to export</span></div>
+            <select id="exportSize" aria-label="Export size"><option value="1">Original</option><option value="2">2×</option><option value="1024">1024px</option><option value="512">512px</option></select>
+            <select id="exportFormat" aria-label="Export format"><option value="png">PNG</option><option value="webp">WEBP</option><option value="jpeg">JPEG</option></select>
+            <button class="br-primary" id="download">Download</button>
+          </div>
+        </section>
+        <div class="br-error" id="error" role="alert" hidden></div>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="/systems/background-remover/remover.js?v=1"></script>
+</body>
+</html>
