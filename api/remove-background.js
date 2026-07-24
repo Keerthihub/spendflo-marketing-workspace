@@ -68,32 +68,62 @@ async function getInput(req) {
   };
 }
 
-async function removeBg(input) {
-  const key = process.env.REMOVE_BG_API_KEY;
-  if (!key) throw Object.assign(new Error("REMOVE_BG_API_KEY is not configured."), { status: 503 });
-  const body = new FormData();
-  body.append("image_file", new Blob([input.bytes], { type: input.type }), input.name);
-  body.append("size", "auto");
-  body.append("format", "png");
-  return fetch("https://api.remove.bg/v1.0/removebg", {
-    method: "POST",
-    headers: { "X-Api-Key": key },
-    body,
-    signal: AbortSignal.timeout(55000)
-  });
-}
+async function removeBackground(input) {
+  // Free background removal using rembg open-source library
+  // pip install rembg pillow
+  const { exec } = require("child_process");
+  const fs = require("fs/promises");
+  const path = require("path");
+  const crypto = require("crypto");
 
-async function clipdrop(input) {
-  const key = process.env.CLIPDROP_API_KEY;
-  if (!key) throw Object.assign(new Error("CLIPDROP_API_KEY is not configured."), { status: 503 });
-  const body = new FormData();
-  body.append("image_file", new Blob([input.bytes], { type: input.type }), input.name);
-  return fetch("https://clipdrop-api.co/remove-background/v1", {
-    method: "POST",
-    headers: { "x-api-key": key },
-    body,
-    signal: AbortSignal.timeout(55000)
-  });
+  // Create temp files
+  const tmpDir = "/tmp";
+  const fileId = crypto.randomBytes(8).toString("hex");
+  const inputPath = path.join(tmpDir, `rembg-in-${fileId}`);
+  const outputPath = path.join(tmpDir, `rembg-out-${fileId}.png`);
+
+  try {
+    // Write input to temp file
+    await fs.writeFile(inputPath, input.bytes);
+
+    // Run rembg (free, open-source)
+    await new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        reject(new Error("Background removal timed out."));
+      }, 55000);
+
+      exec(`rembg i "${inputPath}" "${outputPath}"`, (error, stdout, stderr) => {
+        clearTimeout(timeout);
+        if (error) {
+          reject(new Error(
+            error.code === 127
+              ? "rembg not installed. Install with: pip install rembg"
+              : "Background removal failed: " + (stderr || error.message)
+          ));
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    // Read result
+    const output = await fs.readFile(outputPath);
+
+    // Cleanup
+    await Promise.all([
+      fs.unlink(inputPath).catch(() => {}),
+      fs.unlink(outputPath).catch(() => {})
+    ]);
+
+    return output;
+  } catch (error) {
+    // Cleanup on error
+    await Promise.all([
+      fs.unlink(inputPath).catch(() => {}),
+      fs.unlink(outputPath).catch(() => {})
+    ]);
+    throw error;
+  }
 }
 
 module.exports = async function handler(req, res) {
@@ -102,16 +132,8 @@ module.exports = async function handler(req, res) {
   try {
     const input = await getInput(req);
     if (!input.bytes.length) return json(res, 400, { error: "The image is empty." });
-    const provider = (process.env.BACKGROUND_PROVIDER || "removebg").toLowerCase();
-    const response = provider === "clipdrop" ? await clipdrop(input) : await removeBg(input);
-    if (!response.ok) {
-      const detail = (await response.text()).slice(0, 500);
-      console.error("Background provider error", response.status, detail);
-      return json(res, response.status >= 500 ? 502 : response.status, {
-        error: response.status === 429 ? "The background service is busy. Try again shortly." : "Background removal failed."
-      });
-    }
-    const output = Buffer.from(await response.arrayBuffer());
+
+    const output = await removeBackground(input);
     res.statusCode = 200;
     res.setHeader("Content-Type", "image/png");
     res.setHeader("Content-Length", output.length);
