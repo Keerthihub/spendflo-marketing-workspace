@@ -392,11 +392,11 @@
   }
 
   /* ---- Injected hero animations for select pages (self-correcting) ---- */
-  var FX_WP = '<div class="wp"><span class="wp-pg p3"></span><span class="wp-pg p2"></span><span class="wp-pg p1"><i></i><i></i><i></i><i></i></span><span class="wp-cover"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 16 9 5 9-5"/></svg></span></div>';
-  var FX_INTRO = '<div class="iw"><span class="iw-tok t-color"></span><span class="iw-tok t-type">Aa</span><span class="iw-tok t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8H20l-4.7 3.4L17 18l-5-3.6L7 18l1.7-5.8L4 8.8h6.1z"/></svg></span><div class="iw-card"><span class="iw-bar"></span><span class="iw-line l1"></span><span class="iw-line l2"></span><span class="iw-btn"></span></div></div>';
-  var FX_COL = '<div class="col"><span class="co a"></span><span class="co b"></span><span class="co c"></span></div>';
-  var IG = ['<path pathLength="1" d="M12 20h9"/><path pathLength="1" d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>','<rect pathLength="1" x="3" y="4" width="18" height="16" rx="2"/><circle pathLength="1" cx="8.5" cy="9.5" r="1.5"/><path pathLength="1" d="m21 16-5-5L5 20"/>','<rect pathLength="1" x="4" y="4" width="7" height="7" rx="1"/><rect pathLength="1" x="13" y="4" width="7" height="7" rx="1"/><rect pathLength="1" x="4" y="13" width="7" height="7" rx="1"/><rect pathLength="1" x="13" y="13" width="7" height="7" rx="1"/>','<path pathLength="1" d="M12 3l1.9 5.8H20l-4.7 3.4L17 18l-5-3.6L7 18l1.7-5.8L4 8.8h6.1z"/>'];
-  var FX_ICON = '<div class="idraw"><div class="idraw-tile">' + IG.map(function (d, i) { return '<svg class="ic ic' + (i+1) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>'; }).join('') + '</div><div class="idraw-cap"></div></div>';
+  var FX_WP = '<div class="bcard bcard-wp"><span class="bc-cover"><i class="bc-wpk"></i><i class="bc-title"></i><i class="bc-title s"></i></span><span class="bc-body"><span class="bc-line l1"></span><span class="bc-line l2"></span><span class="bc-line l3"></span><span class="bc-stat"></span><span class="bc-line l4"></span><span class="bc-line l5"></span></span></div>';
+  var FX_INTRO = '<div class="bcard bcard-intro"><span class="bc-top"><i class="bc-dot"></i><i class="bc-bar"></i></span><span class="bc-line l1"></span><span class="bc-line l2"></span><span class="bc-line l3"></span><span class="bc-btn"></span></div>';
+  var FX_COL = '<div class="cpal">' + ['#390021','#e92589','#D53987','#e0218a','#fde8f2','#1c1917'].map(function (c, i) { return '<span class="cp cp' + (i+1) + '" style="background:' + c + '"></span>'; }).join('') + '</div>';
+  var IG = ['<rect pathLength="1" x="3" y="5" width="18" height="14" rx="2"/><path pathLength="1" d="m4 7 8 6 8-6"/>','<path pathLength="1" d="M12 3l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V6l7-3Z"/>','<path pathLength="1" d="M12 2v20"/><path pathLength="1" d="M16 6a4 4 0 0 0-4-2H10a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-2a4 4 0 0 1-4-2"/>','<path pathLength="1" d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path pathLength="1" d="M14 3v5h5"/>','<rect pathLength="1" x="5" y="3" width="14" height="18" rx="1"/><path pathLength="1" d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/>','<path pathLength="1" d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8Z"/>','<circle pathLength="1" cx="12" cy="12" r="9"/><path pathLength="1" d="m8.5 12 2.4 2.4L15.5 9"/>','<path pathLength="1" d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z"/><path pathLength="1" d="M10 20a2 2 0 0 0 4 0"/>','<path pathLength="1" d="M12 3l2.6 6.3 6.4.5-4.9 4.1 1.6 6.1L12 17l-5.3 3 1.6-6.1L3.4 9.8l6.4-.5Z"/>'];
+  var FX_ICON = '<div class="igrid">' + IG.map(function (d, i) { return '<span class="igc igc' + (i+1) + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg></span>'; }).join('') + '</div>';
   function injectHeroFX() {
     var pth = location.pathname, key, html;
     if (pth.indexOf('/systems/whitepaper') !== -1) { key = 'wp'; html = FX_WP; }
@@ -407,12 +407,32 @@
     var host = document.querySelector('.content .phero') || document.querySelector('.phero');
     if (!host) return;
     if (key === 'colour') host.classList.add('phero-fx-colour');
-    if (host.querySelector('.dls-fx')) return;
-    var d = document.createElement('div'); d.className = 'dls-fx dls-fx-' + key; d.setAttribute('aria-hidden', 'true');
-    d.innerHTML = html; host.appendChild(d);
+    var stage = host.querySelector('.phero-stage');
+    if (!stage) { stage = document.createElement('div'); stage.className = 'phero-stage'; host.appendChild(stage); }
+    if (stage.querySelector('.dls-fx-' + key)) return;
+    stage.innerHTML = '<div class="dls-fx dls-fx-' + key + '" aria-hidden="true">' + html + '</div>';
+  }
+  function addBrandSwatch() {
+    if (location.pathname.indexOf('/foundations/colour') === -1) return;
+    var hex = '#D53987';
+    var grid = document.querySelector('.swatch-grid');
+    if (grid && !grid.querySelector('[data-brandpink]')) {
+      var btn = document.createElement('button');
+      btn.className = 'swatch'; btn.setAttribute('data-brandpink', '1'); btn.title = 'Copy ' + hex;
+      btn.style.cssText = 'text-align:left;cursor:pointer;border:1px solid var(--border-card);padding:0px';
+      btn.innerHTML = '<div class="chip-color" style="background:' + hex + '"></div><div class="meta"><div class="name">--brand-pink</div><div class="val">' + hex + '</div><div class="role">Brand magenta from the Flo wordmark.</div></div>';
+      btn.addEventListener('click', function () { try { if (navigator.clipboard) navigator.clipboard.writeText(hex); } catch (e) {} });
+      grid.appendChild(btn);
+    }
+    var chips = document.querySelector('.phero-chips');
+    if (chips && !chips.querySelector('[data-brandpink]')) {
+      var c = document.createElement('span'); c.className = 'pchip'; c.setAttribute('data-brandpink', '1');
+      c.innerHTML = '<span class="cdot" style="background:' + hex + '"></span>brand ' + hex;
+      chips.appendChild(c);
+    }
   }
 
-  function applyAll() { restructureNav(); injectNewUpdatesNav(); loadSocialGallery(); relabelEmailer(); convertDocHd(); patchSigHero(); injectHeroFX(); brandSwap(); injectSpendfloIcon(); loadSigBuilder(); mount(); }
+  function applyAll() { restructureNav(); injectNewUpdatesNav(); loadSocialGallery(); relabelEmailer(); convertDocHd(); patchSigHero(); injectHeroFX(); addBrandSwatch(); brandSwap(); injectSpendfloIcon(); loadSigBuilder(); mount(); }
   function schedule() { clearTimeout(timer); timer = setTimeout(applyAll, 120); }
 
   function init(root) {
@@ -462,12 +482,30 @@
     else window.addEventListener('load', function () { setTimeout(cb, 60); });
   }
 
+  function initLoader() {
+    if (document.getElementById('sf-loader')) return;
+    var o = document.createElement('div');
+    o.id = 'sf-loader';
+    o.style.cssText = 'position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:#fdfcfc;transition:opacity .45s ease;opacity:1';
+    var img = document.createElement('img');
+    img.src = '/brand/spendflo-loader.gif'; img.alt = 'Loading'; img.setAttribute('fetchpriority', 'high');
+    img.style.cssText = 'width:140px;height:140px;object-fit:contain';
+    o.appendChild(img);
+    (document.body || document.documentElement).appendChild(o);
+    var done = false, start = Date.now();
+    function hide() { if (done) return; done = true; o.style.opacity = '0'; setTimeout(function () { if (o.parentNode) o.parentNode.removeChild(o); }, 520); }
+    function tryHide() { setTimeout(hide, Math.max(0, 1000 - (Date.now() - start))); }
+    if (document.readyState === 'complete') tryHide();
+    window.addEventListener('load', tryHide);
+    setTimeout(hide, 6000);
+  }
   function boot() {
+    initLoader();
     // Load custom styles from a fresh URL (the hashed Next stylesheet is cached
     // "immutable", so appended rules there may never reach a returning visitor).
     if (!document.querySelector('link[data-dls-custom]')) {
       var l = document.createElement('link');
-      l.rel = 'stylesheet'; l.href = '/dls-custom.css?v=34'; l.setAttribute('data-dls-custom', '1');
+      l.rel = 'stylesheet'; l.href = '/dls-custom.css?v=37'; l.setAttribute('data-dls-custom', '1');
       document.head.appendChild(l);
     }
     // Swap brand ASAP too (best-effort pre-hydration), then keep it applied.

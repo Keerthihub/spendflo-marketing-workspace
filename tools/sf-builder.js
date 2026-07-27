@@ -497,7 +497,7 @@ def('header',{label:'Header',icon:'layout',tag:'HEADER',dz:false,variants:[['spl
 
 def('cover',{label:'Cover',icon:'flag',tag:'COVER',dz:false,variants:[['gate','Gate motif'],['minimal','Minimal'],['split','Split'],['centered','Centered']],
  make:function(){return {type:'cover',variant:'gate',wpk:'WHITEPAPER',title:'The name of your whitepaper goes here',showSub:true,sub:'A single supporting line that frames the argument.',fg:'#ffffff'};},
- render:function(b){var v=V(b,'gate');var motif=(v!=='minimal')?gateMotif():'';return '<div class="b-cover v-'+v+' '+(PAGED?'full':'')+'" style="padding:64px '+PAD+'px">'+'<span class="glow"></span>'+motif+'<div class="cvin"><p class="wpk">'+ce('wpk',b.wpk)+'</p><div class="rule"></div><h1>'+ce('title',b.title)+'</h1><div class="rule"></div>'+(b.showSub?'<p class="sub">'+ce('sub',b.sub)+'</p>':'')+'</div></div>';}});
+ render:function(b){var v=V(b,'gate');return '<div class="b-cover v-'+v+' '+(PAGED?'full':'')+'" style="padding:64px '+PAD+'px">'+'<span class="glow"></span>'+'<div class="cvin"><p class="wpk">'+ce('wpk',b.wpk)+'</p><div class="rule"></div><h1>'+ce('title',b.title)+'</h1><div class="rule"></div>'+(b.showSub?'<p class="sub">'+ce('sub',b.sub)+'</p>':'')+'</div></div>';}});
 
 def('heading',{label:'Heading',icon:'type',tag:'HEADING',dz:false,variants:[['eyebrow','Eyebrow'],['numbered','Numbered'],['underline','Underline'],['accent','Accent bar']],
  make:function(){return {type:'heading',variant:'eyebrow',num:'01',showEyebrow:true,eyebrow:'Section',head:'A section headline',bg:'#ffffff',fg:'',align:'left',pt:34,pb:8,fs:0};},
