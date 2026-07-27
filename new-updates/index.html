@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="/_next/static/css/8ff0a12c457935ae.css"/>
+<title>Spendflo · Update your email signature</title>
+<meta name="description" content="Update your email signature with the latest Spendflo branding using the new Email Signature Builder."/>
+<script>try{var t=localStorage.getItem("sf-theme");if(t==="dark")document.documentElement.dataset.theme="dark";}catch(e){}</script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script defer src="/dw-init.js?v=33"></script>
+<link rel="icon" href="/favicon.ico" sizes="48x48"/>
+<link rel="icon" type="image/svg+xml" href="/brand/spendflo-icon-colour.svg"/>
+<link rel="apple-touch-icon" href="/brand/apple-touch-icon.png"/>
+<style>
+.eu{--ink:var(--text-primary,#1a1a1a);--sub:var(--text-secondary,#575757);--mut:var(--text-muted,#8b8b8b);
+    --line:var(--border-card,#e7e3df);--mag:#e92589;--grad:linear-gradient(135deg,#e92589,#f34db2);--maroon:#390021}
+.eu{position:relative}
+.eu *{box-sizing:border-box}
+.eu-bg{position:absolute;inset:-60px -40px auto;height:520px;pointer-events:none;z-index:0;
+  background:radial-gradient(60% 90% at 80% 18%,rgba(233,37,137,.10),transparent 70%);}
+.eu-hero{position:relative;z-index:1;display:grid;grid-template-columns:1.02fr 1fr;gap:56px;align-items:center;
+  min-height:min(78vh,700px);padding:20px 0 56px}
+/* ---- copy (left aligned) ---- */
+.eu-eyebrow{display:inline-flex;align-items:center;gap:9px;padding:6px;border:1px solid var(--line);
+  border-radius:100px;font-size:12px;font-weight:500;color:var(--sub);background:var(--card,#fff);margin-bottom:22px}
+.eu-eyebrow .tag{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:500;letter-spacing:.06em;
+  text-transform:uppercase;color:#fff;background:var(--grad);border-radius:100px;padding:4px 10px}
+.eu-eyebrow .tag svg{width:12px;height:12px}
+.eu-eyebrow .lbl{padding-right:8px}
+.eu-h1{font-family:var(--font-display,Inter),system-ui,sans-serif;font-weight:500;font-size:clamp(34px,4.4vw,54px);
+  line-height:1.04;letter-spacing:-.03em;color:var(--ink);margin:0}
+.eu-lede{font-size:16px;line-height:1.65;color:var(--sub);margin:20px 0 32px;max-width:52ch}
+.eu-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.eu-btn{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 26px;border-radius:13px;font-size:15px;
+  font-weight:500;text-decoration:none;transition:transform .2s cubic-bezier(.2,.7,.2,1),box-shadow .25s,background .25s;cursor:pointer}
+.eu-btn svg{width:18px;height:18px;transition:transform .25s}
+.eu-primary{color:#fff;background:var(--grad);box-shadow:0 10px 26px rgba(233,37,137,.32)}
+.eu-primary:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(233,37,137,.42)}
+.eu-primary:hover svg{transform:translateX(4px)}
+.eu-secondary{color:var(--ink);background:transparent;border:1.5px solid var(--line)}
+.eu-secondary:hover{border-color:var(--maroon);transform:translateY(-2px)}
+:root[data-theme="dark"] .eu-secondary{color:#f4eef7}
+.eu-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:26px;font-size:12.5px;color:var(--mut)}
+.eu-meta .m{display:inline-flex;align-items:center;gap:7px}
+.eu-meta .m svg{width:14px;height:14px;color:var(--mag)}
+.eu-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--mut)}
+/* ---- preview: just the signature card (no email chrome) ---- */
+.eu-stage{position:relative;z-index:1;display:flex;justify-content:center;align-items:center;min-height:440px}
+.eu-orb{position:absolute;border-radius:50%;filter:blur(30px);opacity:.5;pointer-events:none}
+.eu-orb.a{width:230px;height:230px;background:radial-gradient(closest-side,rgba(233,37,137,.55),transparent);top:-16px;right:4%;animation:euFloat 9s ease-in-out infinite}
+.eu-orb.b{width:180px;height:180px;background:radial-gradient(closest-side,rgba(57,0,33,.4),transparent);bottom:0;left:0;animation:euFloat 11s ease-in-out infinite reverse}
+.eu-dots{position:absolute;inset:0;background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:22px 22px;
+  -webkit-mask-image:radial-gradient(closest-side,#000,transparent);mask-image:radial-gradient(closest-side,#000,transparent);opacity:.5;pointer-events:none}
+.eu-sigcard{position:relative;width:min(440px,100%);background:#fff;border:1px solid #ece8e4;border-radius:18px;padding:26px;
+  box-shadow:0 30px 70px rgba(57,0,33,.16);animation:euRise .9s cubic-bezier(.2,.8,.2,1) both, euBob 7s ease-in-out 1s infinite}
+.eu-sig-outer{transition:opacity .45s ease,transform .45s ease}
+.eu-sig-outer.swap{opacity:.16;transform:translateY(8px) scale(.99)}
+.eu-sig{display:flex;align-items:flex-start;gap:18px}
+.eu-tile{flex:none;width:112px;display:flex;align-items:center;justify-content:center;background:#fbf3f8;border:1px solid #f4dcec;
+  border-radius:14px;aspect-ratio:1;transition:width .4s cubic-bezier(.2,.7,.2,1)}
+.eu-tile img{width:64%;height:auto}
+.eu-divider{align-self:stretch;width:1px;background:var(--line)}
+.eu-details{min-width:0;flex:1}
+.eu-name{font-family:var(--font-display,Inter),sans-serif;font-size:17px;font-weight:500;color:#1a1a1a;line-height:1.3;display:flex;align-items:center;gap:2px}
+.eu-caret{display:inline-block;width:2px;height:15px;background:var(--mag);margin-left:1px;animation:euBlink 1.05s step-end infinite}
+.eu-role{font-size:13px;color:#575757;margin-top:2px}
+.eu-role b{color:var(--mag);font-weight:500}
+.eu-contact{font-size:12px;color:#8b8b8b;margin-top:9px;line-height:1.7}
+.eu-social{display:flex;gap:12px;margin-top:12px}
+.eu-social img{width:18px;height:18px;opacity:0;transform:translateY(5px)}
+.eu-social.go img{animation:euSoc .45s cubic-bezier(.2,.8,.2,1) forwards}
+.eu-social.go img:nth-child(1){animation-delay:.04s}.eu-social.go img:nth-child(2){animation-delay:.10s}
+.eu-social.go img:nth-child(3){animation-delay:.16s}.eu-social.go img:nth-child(4){animation-delay:.22s}
+.eu-social.go img:nth-child(5){animation-delay:.28s}.eu-social.go img:nth-child(6){animation-delay:.34s}
+.eu-cta{display:inline-block;margin-top:14px;font-size:12px;font-weight:500;color:#fff;background:var(--grad);
+  padding:9px 18px;border-radius:100px;text-decoration:none}
+.eu-banner{margin-top:16px;border-radius:10px;overflow:hidden;border:1px solid #f0ece8;aspect-ratio:1111/234;background:#f4f3f1}
+.eu-banner img{width:100%;height:100%;object-fit:cover;transition:opacity .5s ease}
+.eu-sig[data-layout="compact"] .eu-tile{width:58px;border-radius:50%}
+.eu-sig[data-layout="compact"] .eu-tile img{width:58%}
+.eu-sig[data-layout="compact"] .eu-divider{display:none}
+.eu-sig[data-layout="compact"] .eu-cta{display:none}
+.eu-sig[data-layout="stacked"]{flex-direction:column;align-items:center;text-align:center;gap:12px}
+.eu-sig[data-layout="stacked"] .eu-divider{display:none}
+.eu-sig[data-layout="stacked"] .eu-name{justify-content:center}
+.eu-sig[data-layout="stacked"] .eu-social{justify-content:center}
+.eu-sig[data-layout="stacked"] .eu-tile{width:66px;border-radius:16px}
+.eu-chips{display:flex;gap:7px;margin:0 0 16px}
+.eu-chip{font-size:11px;font-weight:500;color:#8b8b8b;border:1px solid var(--line);border-radius:100px;padding:5px 12px;transition:.3s}
+.eu-chip.on{color:#fff;background:var(--maroon);border-color:var(--maroon)}
+@keyframes euRise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes euBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes euFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-14px,16px)}}
+@keyframes euBlink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes euSoc{to{opacity:1;transform:none}}
+.eu-fade{animation:euFadeUp .7s cubic-bezier(.2,.8,.2,1) both}
+.eu-fade.d1{animation-delay:.06s}.eu-fade.d2{animation-delay:.12s}.eu-fade.d3{animation-delay:.18s}.eu-fade.d4{animation-delay:.24s}
+@keyframes euFadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (max-width:980px){
+  .eu-hero{grid-template-columns:1fr;gap:40px;min-height:0;padding-top:8px}
+  .eu-stage{order:2;min-height:0}
+  .eu-bg{height:360px}
+}
+@media (prefers-reduced-motion:reduce){
+  .eu-sigcard{animation:euRise .6s ease both}
+  .eu-orb{animation:none}.eu-caret{animation:none;opacity:0}
+  .eu-social img{opacity:1;transform:none}
+  .eu-sig-outer{transition:none}
+}
+</style>
+</head><body><div class="app"><main style="opacity:1"><div class="shell"><aside class="navpanel zdark"><div class="np-top"><a href="/"><img alt="Spendflo" fetchPriority="high" width="118" height="22" decoding="async" data-nimg="1" style="color:transparent" src="/brand/spendflo-full-colour-white.svg"/></a><span class="np-topbtns"><button class="np-kbd" aria-label="Toggle theme"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></button><button class="np-kbd" aria-label="Search">⌘K</button></span></div><div class="np-title">Design Language System</div><div class="np-div full"></div><a class="np-row" href="/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></span><span class="lb">How to use this</span><span class="tg">start</span></a><a class="np-row nu-navrow active" href="/new-updates/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg></span><span class="lb">New updates</span><span class="tg tg-new">new</span></a><div><div class="np-glabel">Getting started</div><div><a class="np-row" href="/getting-started/introduction/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rocket"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg></span><span class="lb">Introduction</span><span class="tg">intro</span></a></div><div><a class="np-row" href="/getting-started/design-workflow/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pen-tool"><path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"></path><path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"></path><path d="m2.3 2.3 7.286 7.286"></path><circle cx="11" cy="11" r="2"></circle></svg></span><span class="lb">Design workflow</span><span class="tg">design</span></a></div><div><a class="np-row" href="/getting-started/developer-workflow/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-xml"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg></span><span class="lb">Developer workflow</span><span class="tg">dev</span></a></div><div><a class="np-row" href="/getting-started/contribution/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-git-pull-request"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" x2="6" y1="9" y2="21"></line></svg></span><span class="lb">Contribution &amp; FAQs</span><span class="tg">govern</span></a></div></div><div><div class="np-glabel">Systems</div><div><a class="np-row" href="/systems/deck/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-monitor-play"><path d="M10 7.75a.75.75 0 0 1 1.142-.638l3.664 2.249a.75.75 0 0 1 0 1.278l-3.664 2.25a.75.75 0 0 1-1.142-.64z"></path><path d="M12 17v4"></path><path d="M8 21h8"></path><rect x="2" y="3" width="20" height="14" rx="2"></rect></svg></span><span class="lb">Deck</span><span class="tg">PPT</span></a></div><div><a class="np-row" href="/systems/website/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg></span><span class="lb">Website DLS</span><span class="tg">web</span></a></div><div><a class="np-row" href="/systems/case-study/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg></span><span class="lb">One pager</span><span class="tg">1-pager</span></a></div><div><a class="np-row" href="/systems/emailer/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg></span><span class="lb">Emailer</span><span class="tg">email</span></a></div><div><a class="np-row" href="/systems/whitepaper/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></span><span class="lb">Whitepaper</span><span class="tg">A4 doc</span></a></div><div><a class="np-row" href="/systems/email-signature/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></span><span class="lb">Email signature</span><span class="tg">mail</span></a></div><div><a class="np-row" href="/systems/social-ads/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-megaphone"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg></span><span class="lb">Social &amp; ads</span><span class="tg">promo</span></a></div></div><div><div class="np-glabel">Foundations</div><div><a class="np-row" href="/foundations/logo/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></span><span class="lb">Logo usage</span><span class="tg">brand</span></a></div><div><a class="np-row" href="/foundations/colour/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-droplet"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path></svg></span><span class="lb">Colour</span><span class="tg">palette</span></a></div><div><a class="np-row" href="/foundations/typography/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pen-line"><path d="M12 20h9"></path><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"></path></svg></span><span class="lb">Typography</span><span class="tg">type</span></a></div><div><a class="np-row" href="/foundations/iconography/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-grid"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg></span><span class="lb">Iconography</span><span class="tg">icons</span></a></div><div><a class="np-row" href="/foundations/agent-avatars/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg></span><span class="lb">Agent avatars</span><span class="tg">agents</span></a></div><div><a class="np-row" href="/foundations/brand-assets/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span><span class="lb">Brand assets</span><span class="tg">logos</span></a></div></div><div><div class="np-glabel">Design tokens</div><div><a class="np-row" href="/tokens/colors/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-palette"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg></span><span class="lb">Colour tokens</span><span class="tg">color</span></a></div><div><a class="np-row" href="/tokens/space-layout/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ruler"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"></path><path d="m14.5 12.5 2-2"></path><path d="m11.5 9.5 2-2"></path><path d="m8.5 6.5 2-2"></path><path d="m17.5 15.5 2-2"></path></svg></span><span class="lb">Spacing &amp; layout</span><span class="tg">layout</span></a></div><div><a class="np-row" href="/tokens/elevation-motion/"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg></span><span class="lb">Elevation &amp; motion</span><span class="tg">motion</span></a></div></div></aside><button class="mnav-btn" aria-label="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><div class="content"><div class="eu">
+  <div class="eu-bg" aria-hidden="true"></div>
+  <div class="eu-hero">
+    <div class="eu-copy">
+      <span class="eu-eyebrow eu-fade"><span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.6 4.6L18 9l-4.4 1.4L12 15l-1.6-4.6L6 9l4.4-1.4z"/></svg> New</span><span class="lbl">Email signatures</span></span>
+      <h1 class="eu-h1 eu-fade d1">Update Your Email Signature</h1>
+      <p class="eu-lede eu-fade d2">Keep your email signature up to date with the latest Spendflo branding. Use the new Email Signature Builder to personalize your details, update social links, add event banners, and ensure every email represents the brand consistently.</p>
+      <div class="eu-actions eu-fade d3">
+        <a class="eu-btn eu-primary" href="/signature-builder.html">Update My Email Signature <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a class="eu-btn eu-secondary" href="/systems/email-signature/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> View Email Signature Guidelines</a>
+      </div>
+      <div class="eu-meta eu-fade d4">
+        <span class="m"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 2-minute setup</span><span class="dot"></span>
+        <span class="m"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Works in Gmail &amp; Outlook</span><span class="dot"></span>
+        <span class="m">Updated Jul 2026</span>
+      </div>
+    </div>
+
+    <div class="eu-stage eu-fade d2">
+      <span class="eu-orb a" aria-hidden="true"></span>
+      <span class="eu-orb b" aria-hidden="true"></span>
+      <span class="eu-dots" aria-hidden="true"></span>
+      <div class="eu-sigcard" id="euCard" role="img" aria-label="Animated preview of a Spendflo email signature">
+        <div class="eu-sig-outer" id="euSigOuter">
+          <div class="eu-sig" id="euSig" data-layout="standard">
+            <div class="eu-tile"><img src="/brand/spendflo-icon-colour.svg" alt="Spendflo"/></div>
+            <div class="eu-divider"></div>
+            <div class="eu-details">
+              <div class="eu-name" id="euName">Keerthivasan<i class="eu-caret"></i></div>
+              <div class="eu-role" id="euRole">Visual Designer · <b>Spendflo</b></div>
+              <div class="eu-contact" id="euContact">keerthivasan@spendflo.com<br>+91 824&#8209;831&#8209;4696</div>
+              <div class="eu-social go" id="euSocial"><img src="/icons/social/black/linkedin.png" width="18" height="18" alt="linkedin"/><img src="/icons/social/black/whatsapp.png" width="18" height="18" alt="whatsapp"/><img src="/icons/social/black/x.png" width="18" height="18" alt="x"/><img src="/icons/social/black/youtube.png" width="18" height="18" alt="youtube"/><img src="/icons/social/black/slack.png" width="18" height="18" alt="slack"/><img src="/icons/social/black/github.png" width="18" height="18" alt="github"/></div>
+              <a class="eu-cta" href="/signature-builder.html">Book a demo</a>
+            </div>
+          </div>
+          <div class="eu-banner"><img id="euBanner" src="/social-assets/promotions/procurement-engineers.png" alt="Event banner"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div></div></main></div><script>
+(function(){
+  var outer=document.getElementById('euSigOuter'), soc=document.getElementById('euSocial'), card=document.getElementById('euCard');
+  if(!outer||!soc) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ soc.classList.add('go'); return; }
+  function rebuild(){
+    outer.classList.add('swap');
+    setTimeout(function(){
+      soc.classList.remove('go'); void soc.offsetWidth; soc.classList.add('go'); // re-stagger the icons
+      outer.classList.remove('swap');
+    }, 320);
+  }
+  var timer=setInterval(rebuild, 4200);
+  if(card){
+    card.addEventListener('mouseenter', function(){ clearInterval(timer); });
+    card.addEventListener('mouseleave', function(){ timer=setInterval(rebuild, 4200); });
+  }
+})();
+</script>
+</body></html>

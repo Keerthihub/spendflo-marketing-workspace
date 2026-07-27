@@ -308,11 +308,11 @@ Cache bumped to v25.
      cleaner drop-zone UI with preview/remove and URL paste. Profile photo field removed;
      Event image renders as a full-width banner under the signature. Embed cache-busted (?v=26).
 
-## 21. Signature tweaks + Case Study fix + Newsletter (partial)
+## 21. Signature tweaks + One Pager fix + Newsletter (partial)
 Signature Builder: Layout 1 logo top-aligned with a thin hairline divider (was a bold 2px
 accent rule); removed Layout 6 (Split) -> 5 layouts; confirmed no full Spendflo logo in any
 layout. (?v=27)
-Case Study Builder: fixed the load crash — render() called $("#clientIn").value on a null
+One Pager Builder: fixed the load crash — render() called $("#clientIn").value on a null
 element, which threw and blocked editing; guarded it (and its listener). The builder now
 loads clean and is editable.
 Newsletter Builder: removed the Product Screen block (palette + templates) and removed the
@@ -329,13 +329,21 @@ colour, remove one of two CTAs, H1–H6 text blocks, Testimonial block.
      + email export for hero/cta/twoup/button). 6. Second CTA can be removed per block via a
      Two/One toggle (hero + CTA banner). Tool iframes cache-busted (?v=2); site ?v=28.
 Also (prev turn): removed Product Screen block and the Header Lockup divider; fixed the
-Case Study builder load crash so it's editable.
+One Pager builder load crash so it's editable.
 
 ## 23. Block alignment (Left / Center / Right) across all block builders
 Added a per-block Alignment control (Left / Center / Right) to the inspector of all three
-block builders — Newsletter, Case Study, and Whitepaper. Selecting a block shows the
+block builders — Newsletter, One Pager, and Whitepaper. Selecting a block shows the
 control; choosing an option wraps the block in .balign al-{left|center|right} (CSS forces
 text-align with !important so it overrides a block's built-in alignment). The Newsletter
 email export also honours it (injects align="" on the block's cell). Also fixed a
 pre-existing load crash in the Whitepaper builder (null $("#clientIn").value), which now
 loads and edits cleanly. Tool iframes -> ?v=3; site -> ?v=29.
+
+## 24. Social & ads — asset library (/systems/social-ads)
+Added an "Asset library" section to the Social & ads page showing all 26 uploaded creatives,
+grouped by category (Events 7, Luma 4, Promotions 8, Testimonials 4, Covers & thumbnails 3).
+Each card shows the artwork on a checkerboard tile, its name, a category chip, and its pixel
+dimensions + aspect ratio (e.g. 1200×1350 · 8:9). Category filter chips + click-to-zoom
+lightbox. Images live in /social-assets/<category>/; gallery injected via /social-gallery.js
+(loaded by dw-init on the route). Site ?v=30, gallery ?v=2.
